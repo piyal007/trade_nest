@@ -61,11 +61,30 @@ const Register = () => {
       });
       navigate('/');
     } catch (error) {
+      let errorMessage = 'An error occurred during registration.';
+      
+      if (error.code === 'auth/email-already-in-use') {
+        errorMessage = 'This email is already registered. Would you like to sign in instead?';
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = 'Please enter a valid email address.';
+      } else if (error.code === 'auth/operation-not-allowed') {
+        errorMessage = 'Email/password registration is not enabled. Please contact support.';
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = 'Please choose a stronger password.';
+      }
+
       Swal.fire({
         icon: 'error',
-        title: 'Error!',
-        text: error.message,
-        confirmButtonColor: '#3B82F6'
+        title: 'Registration Failed',
+        text: errorMessage,
+        confirmButtonColor: '#3B82F6',
+        showCancelButton: error.code === 'auth/email-already-in-use',
+        cancelButtonText: 'Sign In',
+        confirmButtonText: 'Try Again'
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.cancel) {
+          navigate('/login');
+        }
       });
     }
   };
