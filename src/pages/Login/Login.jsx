@@ -24,10 +24,10 @@ const Login = () => {
       navigate('/');
     } catch (error) {
       Swal.fire({
-        icon: 'error',
-        title: 'Error!',
+        icon: "error",
+        title: "Error!",
         text: error.message,
-        confirmButtonColor: '#3B82F6'
+        confirmButtonColor: "#3B82F6",
       });
     }
   };
