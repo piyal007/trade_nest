@@ -4,14 +4,18 @@ import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 
 import { auth } from '../../Firebase/firebase.config';
 import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc';
+import { ClipLoader } from 'react-spinners';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
       Swal.fire({
@@ -23,6 +27,8 @@ const Login = () => {
       });
       navigate('/');
     } catch (error) {
+      setIsGoogleLoading(false);
+      setIsLoading(false);
       console.error(`Login Error: ${error.code} - ${error.message}`);
       let errorMessage = 'An error occurred during sign in.';
       let showRegisterButton = false;
@@ -69,6 +75,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async () => {
+    setIsGoogleLoading(true);
     try {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
@@ -81,6 +88,8 @@ const Login = () => {
       });
       navigate('/');
     } catch (error) {
+      setIsGoogleLoading(false);
+      setIsLoading(false);
       console.error(`Google Login Error: ${error.code} - ${error.message}`);
       let errorMessage = 'An error occurred while signing in with Google.';
       
@@ -142,8 +151,12 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="btn group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-[1.02]"
+              disabled={isLoading}
+              className="btn group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
             >
+              {isLoading ? (
+                <ClipLoader color="#ffffff" size={20} className="mr-2" />
+              ) : null}
               Sign in
             </button>
           </div>
@@ -162,9 +175,14 @@ const Login = () => {
           <div className="mt-6">
             <button
               onClick={handleGoogleLogin}
-              className="cursor-pointer w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-[1.02]"
+              disabled={isGoogleLoading}
+              className="cursor-pointer w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              <FcGoogle className="h-5 w-5 mr-2" />
+              {isGoogleLoading ? (
+                <ClipLoader color="#1d4ed8" size={20} className="mr-2" />
+              ) : (
+                <FcGoogle className="h-5 w-5 mr-2" />
+              )}
               Sign in with Google
             </button>
           </div>
