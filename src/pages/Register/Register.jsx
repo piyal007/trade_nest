@@ -46,10 +46,14 @@ const Register = () => {
       // Create user
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
       
+      if (!photoURL) {
+        throw new Error('Photo URL is required');
+      }
+
       // Update profile
       await updateProfile(user, {
         displayName: name,
-        photoURL: photoURL || "https://i.postimg.cc/yxzXkbkL/avatar.jpg",
+        photoURL: photoURL
       });
 
       Swal.fire({
@@ -63,7 +67,9 @@ const Register = () => {
     } catch (error) {
       let errorMessage = 'An error occurred during registration.';
       
-      if (error.code === 'auth/email-already-in-use') {
+      if (error.message === 'Photo URL is required') {
+        errorMessage = 'Please provide a photo URL to complete registration.';
+      } else if (error.code === 'auth/email-already-in-use') {
         errorMessage = 'This email is already registered. Would you like to sign in instead?';
       } else if (error.code === 'auth/invalid-email') {
         errorMessage = 'Please enter a valid email address.';
@@ -160,8 +166,9 @@ const Register = () => {
                 id="photo-url"
                 name="photo-url"
                 type="url"
+                required
                 className="appearance-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
-                placeholder="Enter photo URL (optional)"
+                placeholder="Enter your photo URL"
                 value={photoURL}
                 onChange={(e) => setPhotoURL(e.target.value)}
               />
