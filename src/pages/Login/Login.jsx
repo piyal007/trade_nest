@@ -23,11 +23,47 @@ const Login = () => {
       });
       navigate('/');
     } catch (error) {
+      console.error(`Login Error: ${error.code} - ${error.message}`);
+      let errorMessage = 'An error occurred during sign in.';
+      let showRegisterButton = false;
+      
+      switch (error.code) {
+        case 'auth/invalid-email':
+          errorMessage = 'Please enter a valid email address.';
+          break;
+        case 'auth/invalid-credential':
+          errorMessage = 'Invalid email or password. Please check your credentials and try again.';
+          break;
+        case 'auth/user-disabled':
+          errorMessage = 'This account has been disabled. Please contact support.';
+          break;
+        case 'auth/user-not-found':
+          errorMessage = 'No account found with this email.';
+          showRegisterButton = true;
+          break;
+        case 'auth/wrong-password':
+          errorMessage = 'Incorrect password. Please try again.';
+          break;
+        case 'auth/too-many-requests':
+          errorMessage = 'Too many failed attempts. Please try again later.';
+          break;
+        default:
+          errorMessage = 'Invalid email or password. Please try again.';
+          console.error(`Unhandled error code: ${error.code} - ${error.message}`);
+      }
+
       Swal.fire({
-        icon: "error",
-        title: "Error!",
-        text: error.message,
-        confirmButtonColor: "#3B82F6",
+        icon: 'error',
+        title: 'Sign In Failed',
+        text: errorMessage,
+        confirmButtonColor: '#3B82F6',
+        showCancelButton: showRegisterButton,
+        cancelButtonText: 'Create Account',
+        confirmButtonText: 'Try Again'
+      }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.cancel) {
+          navigate('/register');
+        }
       });
     }
   };
@@ -45,11 +81,23 @@ const Login = () => {
       });
       navigate('/');
     } catch (error) {
+      console.error(`Google Login Error: ${error.code} - ${error.message}`);
+      let errorMessage = 'An error occurred while signing in with Google.';
+      
+      if (error.code === 'auth/popup-closed-by-user') {
+        errorMessage = 'Sign in cancelled. Please try again.';
+      } else if (error.code === 'auth/popup-blocked') {
+        errorMessage = 'Pop-up blocked by browser. Please allow pop-ups for this site.';
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        errorMessage = 'An account already exists with the same email but different sign-in credentials.';
+      }
+
       Swal.fire({
         icon: 'error',
-        title: 'Error!',
-        text: error.message,
-        confirmButtonColor: '#3B82F6'
+        title: 'Google Sign In Failed',
+        text: errorMessage,
+        confirmButtonColor: '#3B82F6',
+        confirmButtonText: 'Try Again'
       });
     }
   };
