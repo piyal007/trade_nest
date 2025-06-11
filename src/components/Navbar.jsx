@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { signOut } from 'firebase/auth';
+import { auth } from '../Firebase/firebase.config';
+import { toast } from 'react-hot-toast';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isLoggedIn = false;
-  const user = null;
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast.success('Successfully logged out!');
+      navigate('/');
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <nav className="bg-white shadow-lg fixed w-full top-0 z-50">
@@ -22,7 +36,7 @@ const Navbar = () => {
             <Link to="/cart" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">Cart</Link>
             
             {/* Protected Routes - Only visible when logged in */}
-            {isLoggedIn && (
+            {user && (
               <>
                 <Link to="/all-products" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">All Products</Link>
                 <Link to="/add-product" className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium">Add Product</Link>
@@ -33,7 +47,7 @@ const Navbar = () => {
 
           {/* Auth Buttons - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
-            {isLoggedIn ? (
+            {user ? (
               <div className="flex items-center space-x-4">
                 <div className="relative group">
                   <img 
@@ -46,7 +60,7 @@ const Navbar = () => {
                   </div>
                 </div>
                 <button 
-                  onClick={() => {/* TODO: Add logout handler */}} 
+                  onClick={handleLogout} 
                   className="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 >
                   Logout
@@ -98,54 +112,58 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden pb-4`}>
-          <div className="flex flex-col space-y-4 pt-2">
-            <Link to="/" className="text-gray-600 hover:text-blue-600 transition-colors text-base font-medium">Home</Link>
-            <Link to="/categories" className="text-gray-600 hover:text-blue-600 transition-colors text-base font-medium">Categories</Link>
-            <Link to="/cart" className="text-gray-600 hover:text-blue-600 transition-colors text-base font-medium">Cart</Link>
+        <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden`}>
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <Link to="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors">Home</Link>
+            <Link to="/categories" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors">Categories</Link>
+            <Link to="/cart" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors">Cart</Link>
             
-            {isLoggedIn && (
+            {user && (
               <>
-                <Link to="/all-products" className="text-gray-600 hover:text-blue-600 transition-colors text-base font-medium">All Products</Link>
-                <Link to="/add-product" className="text-gray-600 hover:text-blue-600 transition-colors text-base font-medium">Add Product</Link>
-                <Link to="/my-products" className="text-gray-600 hover:text-blue-600 transition-colors text-base font-medium">My Products</Link>
+                <Link to="/all-products" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors">All Products</Link>
+                <Link to="/add-product" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors">Add Product</Link>
+                <Link to="/my-products" className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors">My Products</Link>
               </>
             )}
 
             {/* Mobile Auth Buttons */}
-            {isLoggedIn ? (
-              <div className="flex flex-col space-y-4 pt-2 border-t border-gray-200">
-                <div className="flex items-center space-x-3">
-                  <img 
-                    src={user?.photoURL || 'https://via.placeholder.com/40'} 
-                    alt="Profile" 
-                    className="w-8 h-8 rounded-full border-2 border-blue-500"
-                  />
-                  <span className="text-gray-800 text-sm font-medium">{user?.displayName || 'User'}</span>
+            <div className="pt-4 pb-3 border-t border-gray-200">
+              {user ? (
+                <div className="flex items-center px-3">
+                  <div className="flex-shrink-0">
+                    <img 
+                      src={user?.photoURL || 'https://via.placeholder.com/40'} 
+                      alt="Profile" 
+                      className="h-10 w-10 rounded-full border-2 border-blue-500"
+                    />
+                  </div>
+                  <div className="ml-3">
+                    <div className="text-base font-medium text-gray-800">{user?.displayName || 'User'}</div>
+                    <button 
+                      onClick={handleLogout}
+                      className="mt-2 w-full bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                    >
+                      Logout
+                    </button>
+                  </div>
                 </div>
-                <button 
-                  onClick={() => {/* TODO: Add logout handler */}} 
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg text-base font-medium hover:bg-red-600 transition-colors w-full text-center"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <div className="flex flex-col space-y-4 pt-2 border-t border-gray-200">
-                <Link 
-                  to="/login" 
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg text-base font-medium hover:bg-blue-600 transition-colors w-full text-center"
-                >
-                  Login
-                </Link>
-                <Link 
-                  to="/register" 
-                  className="border-2 border-blue-500 text-blue-500 px-4 py-2 rounded-lg text-base font-medium hover:bg-blue-500 hover:text-white transition-colors w-full text-center"
-                >
-                  Register
-                </Link>
-              </div>
-            )}
+              ) : (
+                <div className="space-y-2 px-3">
+                  <Link 
+                    to="/login"
+                    className="block w-full bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    Login
+                  </Link>
+                  <Link 
+                    to="/register"
+                    className="block w-full border-2 border-blue-500 text-blue-500 px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-500 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    Register
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
