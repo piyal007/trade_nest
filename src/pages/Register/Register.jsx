@@ -8,6 +8,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordErrors, setPasswordErrors] = useState([]);
   const [photoURL, setPhotoURL] = useState('');
   const navigate = useNavigate();
 
@@ -116,15 +117,22 @@ const Register = () => {
                 className="appearance-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                 placeholder="Create a password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordErrors(validatePassword(e.target.value));
+              }}
               />
-              <p className="mt-1 text-xs text-gray-500">
-                Password must contain:
-                <br />- At least 6 characters
-                <br />- One uppercase letter
-                <br />- One lowercase letter
-                <br />- One special character
-              </p>
+              <div className="mt-1">
+                {password && (
+                  passwordErrors.length > 0 ? (
+                    passwordErrors.map((error, index) => (
+                      <p key={index} className="text-xs text-red-500">{error}</p>
+                    ))
+                  ) : (
+                    <p className="text-xs text-green-500">Password meets all requirements ✓</p>
+                  )
+                )}
+              </div>
             </div>
 
             <div>
