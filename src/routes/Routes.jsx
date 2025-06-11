@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout/MainLayout";
 import NotFound from "../components/NotFound";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -16,11 +17,19 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        Component: Login,
+        element: (
+          <ProtectedRoute requiresAuth={false}>
+            <Login />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "register",
-        Component: Register,
+        element: (
+          <ProtectedRoute requiresAuth={false}>
+            <Register />
+          </ProtectedRoute>
+        ),
       }
     ],
   },
