@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth } from '../../Firebase/firebase.config';
-import { toast } from 'react-hot-toast';
+import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc';
 
 const Login = () => {
@@ -14,10 +14,21 @@ const Login = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast.success('Successfully logged in!');
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Successfully logged in!',
+        showConfirmButton: false,
+        timer: 1500
+      });
       navigate('/');
     } catch (error) {
-      toast.error(error.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: error.message,
+        confirmButtonColor: '#3B82F6'
+      });
     }
   };
 
@@ -25,10 +36,21 @@ const Login = () => {
     try {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
-      toast.success('Successfully logged in with Google!');
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'Successfully logged in with Google!',
+        showConfirmButton: false,
+        timer: 1500
+      });
       navigate('/');
     } catch (error) {
-      toast.error(error.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: error.message,
+        confirmButtonColor: '#3B82F6'
+      });
     }
   };
 
@@ -92,7 +114,7 @@ const Login = () => {
           <div className="mt-6">
             <button
               onClick={handleGoogleLogin}
-              className="btn w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-[1.02]"
+              className="cursor-pointer w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-[1.02]"
             >
               <FcGoogle className="h-5 w-5 mr-2" />
               Sign in with Google
