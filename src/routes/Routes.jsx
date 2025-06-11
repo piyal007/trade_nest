@@ -7,16 +7,13 @@ const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
+    errorElement: <NotFound />,
     children: [
       {
         index: true,
         Component: Home,
       },
     ],
-  },
-  {
-    path: "*",
-    Component: NotFound,
   },
 ]);
 
