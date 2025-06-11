@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../Firebase/firebase.config';
 import Swal from 'sweetalert2';
+import { ClipLoader } from 'react-spinners';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [passwordErrors, setPasswordErrors] = useState([]);
   const [photoURL, setPhotoURL] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const validatePassword = (password) => {
@@ -29,6 +31,7 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     // Validate password
     const passwordErrors = validatePassword(password);
@@ -65,6 +68,7 @@ const Register = () => {
       });
       navigate('/');
     } catch (error) {
+      setIsLoading(false);
       let errorMessage = 'An error occurred during registration.';
       
       if (error.message === 'Photo URL is required') {
@@ -178,9 +182,17 @@ const Register = () => {
           <div>
             <button
               type="submit"
-              className="cursor-pointer group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-[1.02]"
+              disabled={isLoading}
+              className={`cursor-pointer group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg text-white ${isLoading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-[1.02]`}
             >
-              Create Account
+              {isLoading ? (
+                <div className="flex items-center">
+                  <ClipLoader size={20} color="#ffffff" />
+                  <span className="ml-2">Creating Account...</span>
+                </div>
+              ) : (
+                'Create Account'
+              )}
             </button>
           </div>
 
