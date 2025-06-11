@@ -8,6 +8,9 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
 
+// Import custom styles
+import './Home.css';
+
 const Home = () => {
 
   const bannerSlides = [
@@ -35,23 +38,29 @@ const Home = () => {
   ];
 
   return (
-    <div className='w-full mx-auto'>
-      <div className="banner-section mb-8 md:mb-16 lg:mb-20 max-w-[1920px] mx-auto">
+    <div className='w-full' style={{ paddingTop: 'var(--nav-height)' }}>
+      <div className="banner-section mb-8 md:mb-16 lg:mb-20 w-full relative">
         <Swiper
-          spaceBetween={30}
+          spaceBetween={0}
           centeredSlides={true}
           effect={'fade'}
           loop={true}
+          speed={1000}
           autoplay={{
-            delay: 3500,
+            delay: 5000,
             disableOnInteraction: false,
           }}
           pagination={{
             clickable: true,
+            dynamicBullets: true,
+            dynamicMainBullets: 3,
           }}
-          navigation={true}
+          navigation={{
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }}
           modules={[Autoplay, Pagination, Navigation, EffectFade]}
-          className="mySwiper overflow-hidden shadow-2xl rounded-none sm:rounded-lg md:rounded-xl" 
+          className="mySwiper overflow-hidden shadow-[0_5px_30px_rgba(0,0,0,0.3)] w-full" 
           style={{ height: `calc(100vh - var(--nav-height))` }}
         >
           {bannerSlides.map(slide => (
@@ -63,23 +72,29 @@ const Home = () => {
                   backgroundPosition: 'center'
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80 backdrop-blur-[2px] flex items-center justify-center">
-                  <div className="text-center text-white px-4 sm:px-6 md:px-8 w-full max-w-4xl mx-auto py-6 sm:py-8 md:py-10 backdrop-blur-sm bg-black/10 rounded-xl border border-white/10 shadow-2xl">
-                    <div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 md:mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-300 drop-shadow-lg">{slide.title}</h1>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300 mb-3 sm:mb-4 md:mb-6 drop-shadow-lg tracking-wide">{slide.subtitle}</h2>
-                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-5 sm:mb-7 md:mb-10 text-gray-100 font-medium drop-shadow-md max-w-2xl mx-auto">{slide.description}</p>
-                    <button className="bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold py-3 px-6 sm:py-3 sm:px-8 md:py-4 md:px-10 rounded-full uppercase tracking-wider text-sm sm:text-base md:text-lg">
-                      Shop Now
-                     </button>
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <div className="text-center text-white px-6 sm:px-8 md:px-10 w-full max-w-5xl mx-auto py-8 sm:py-10 md:py-12 transform transition-all duration-700 hover:scale-[1.01]">
+                    <div className="animate-fadeIn backdrop-blur-sm backdrop-brightness-75 bg-black/30 p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl">
+                      <span className="inline-block text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] text-blue-300 mb-2 sm:mb-3 font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] animate-[fadeIn_0.8s_ease_0.2s_both]">B2B Wholesale</span>
+                      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 md:mb-6 text-white bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)] animate-[fadeIn_0.8s_ease_0.4s_both] animate-float">{slide.title}</h1>
+                      <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300 mb-4 sm:mb-5 md:mb-7 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)] tracking-wide animate-[fadeIn_0.8s_ease_0.6s_both]">{slide.subtitle}</h2>
+                      <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-10 text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] max-w-3xl mx-auto leading-relaxed animate-[fadeIn_0.8s_ease_0.8s_both]">{slide.description}</p>
+                      <div className="flex justify-center gap-4 animate-[fadeIn_0.8s_ease_1s_both]">
+                        <button className="cursor-pointer bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold py-3 px-8 sm:py-3 sm:px-10 md:py-4 md:px-12 uppercase tracking-wider text-sm sm:text-base md:text-lg rounded-lg shadow-lg hover:shadow-blue-500/50 transform transition-all duration-300 hover:scale-105 hover:translate-y-[-2px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border-2 border-blue-400/30 animate-float">
+                          Shop Now
+                        </button>
+                      </div>
                     </div>
-                   </div>
-                 </div>
+                  </div>
+                </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
+      
+      {/* Scroll indicator */}
+      
     </div>
   );
 };

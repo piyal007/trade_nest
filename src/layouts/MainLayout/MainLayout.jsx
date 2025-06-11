@@ -11,23 +11,35 @@ const MainLayout = () => {
       if (navbarRef.current) {
         const navHeight = navbarRef.current.offsetHeight;
         document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
+        console.log('Navbar height:', navHeight); // For debugging
       }
     };
 
+    // Initial calculation
     updateNavHeight();
+    
+    // Recalculate on resize
     window.addEventListener('resize', updateNavHeight);
+    
+    // Recalculate after a short delay to ensure all elements are fully loaded
+    const timeoutId = setTimeout(updateNavHeight, 100);
 
-    return () => window.removeEventListener('resize', updateNavHeight);
+    return () => {
+      window.removeEventListener('resize', updateNavHeight);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
-    <>
-      <div ref={navbarRef}>
+    <div className="flex flex-col min-h-screen">
+      <div ref={navbarRef} className="w-full z-50">
         <Navbar />
       </div>
-      <Outlet />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
