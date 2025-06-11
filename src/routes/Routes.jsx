@@ -5,6 +5,7 @@ import NotFound from "../components/NotFound";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ProtectedRoute from "../components/ProtectedRoute";
+import Categories from "../pages/Categories/Categories";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             <Register />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "categories",
+        Component: Categories,
       }
     ],
   },
