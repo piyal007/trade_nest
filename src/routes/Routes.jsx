@@ -6,6 +6,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Categories from "../pages/Categories/Categories";
+import AddProduct from "../pages/AddProduct/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,14 @@ const router = createBrowserRouter([
       {
         path: "categories",
         Component: Categories,
+      },
+      {
+        path: "add-product",
+        element: (
+          <ProtectedRoute>
+            <AddProduct />
+          </ProtectedRoute>
+        ),
       }
     ],
   },
