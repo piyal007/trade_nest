@@ -25,6 +25,7 @@ const Home = () => {
       
       {/* Call to Action Section */}
       <CallToAction />
+      
     </div>
   );
 };
