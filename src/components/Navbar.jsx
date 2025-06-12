@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.config';
@@ -57,46 +57,70 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link
+            <NavLink
               to="/"
-              className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-600 font-medium text-sm"
+                  : "text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+              }
             >
               Home
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/categories"
-              className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-600 font-medium text-sm"
+                  : "text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+              }
             >
               Categories
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/cart"
-              className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-600 font-medium text-sm"
+                  : "text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+              }
             >
               Cart
-            </Link>
+            </NavLink>
 
             {/* Protected Routes - Only visible when logged in */}
             {user && (
               <>
-                <Link
+                <NavLink
                   to="/all-products"
-                  className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-600 font-medium text-sm"
+                      : "text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+                  }
                 >
                   All Products
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/add-product"
-                  className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-600 font-medium text-sm"
+                      : "text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+                  }
                 >
                   Add Product
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/my-products"
-                  className="text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-600 font-medium text-sm"
+                      : "text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+                  }
                 >
                   My Products
-                </Link>
+                </NavLink>
               </>
             )}
           </div>
@@ -183,45 +207,69 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <div className={`${isMenuOpen ? "block" : "hidden"} md:hidden`}>
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <Link
+            <NavLink
               to="/"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+              className={({ isActive }) =>
+                isActive
+                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
+                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+              }
             >
               Home
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/categories"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+              className={({ isActive }) =>
+                isActive
+                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
+                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+              }
             >
               Categories
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               to="/cart"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+              className={({ isActive }) =>
+                isActive
+                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
+                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+              }
             >
               Cart
-            </Link>
+            </NavLink>
 
             {user && (
               <>
-                <Link
+                <NavLink
                   to="/all-products"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
+                      : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  }
                 >
                   All Products
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/add-product"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
+                      : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  }
                 >
                   Add Product
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="/my-products"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
+                      : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  }
                 >
                   My Products
-                </Link>
+                </NavLink>
               </>
             )}
 

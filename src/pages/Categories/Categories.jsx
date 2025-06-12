@@ -68,27 +68,68 @@ const Categories = () => {
               categories.map((category) => (
                 <div 
                   key={category._id} 
-                  className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl"
+                  className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl relative flex flex-col h-[600px] border border-gray-100 hover:border-blue-100"
                 >
-                  <div className="h-48 overflow-hidden">
+                  {/* Category Image */}
+                  <div className="h-96 overflow-hidden bg-gray-50">
                     <img 
                       src={category.image} 
                       alt={category.name} 
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                     />
                   </div>
-                  <div className="p-6">
-                    <h3 className="font-bold text-xl text-gray-800 mb-2">{category.name}</h3>
-                    <p className="text-gray-600 mb-4">{category.description}</p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-blue-600 font-medium">{category.productCount?.toLocaleString() || 0} Products</span>
-                      <Link 
-                        to={`/category/${category._id}`} 
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
-                      >
-                        View Products
-                      </Link>
+                  
+                  {/* Popular Tag */}
+                  {category.popular && (
+                    <div className="absolute top-4 right-4 z-10">
+                      <div className="bg-red-500 text-white text-xs font-semibold px-4 py-1.5 rounded-full shadow-sm">
+                        Popular
+                      </div>
                     </div>
+                  )}
+                  
+                  {/* Category Content */}
+                  <div className="p-8 flex flex-col justify-between flex-1 space-y-4">
+                    <div>
+                      <h3 className="font-bold text-2xl text-gray-800 mb-3 hover:text-blue-600 transition-colors">{category.name}</h3>
+                      <p className="text-gray-600 text-sm line-clamp-2">{category.description}</p>
+                    </div>
+                    
+                    {/* Product Count */}
+                    <div className="flex items-center">
+                      <div className="bg-blue-100 rounded-full p-2 mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                        </svg>
+                      </div>
+                      <span className="text-blue-600 font-semibold">{category.productCount?.toLocaleString() || 0} Products</span>
+                    </div>
+                    
+                    {/* Popular Items */}
+                    <div>
+                      {category.subcategories && category.subcategories.length > 0 ? (
+                        <>
+                          <p className="text-xs font-semibold text-gray-500 uppercase mb-3">POPULAR ITEMS</p>
+                          <div className="flex flex-wrap gap-2">
+                            {category.subcategories.map((item, index) => (
+                              <span key={index} className="bg-gray-50 text-gray-700 text-xs px-4 py-1.5 rounded-full font-medium hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        </>
+                      ) : (
+                        <div className="h-8"></div>
+                      )}
+                    </div>
+                    
+                    {/* View Products Button */}
+                    <Link 
+                      to={`/category/${category._id}`} 
+                      className="block w-full text-center bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl transition-colors font-semibold shadow-sm hover:shadow-md"
+                    >
+                      VIEW PRODUCTS
+                    </Link>
                   </div>
                 </div>
               ))

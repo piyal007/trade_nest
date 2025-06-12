@@ -56,17 +56,17 @@ const FeaturedCategories = () => {
             ) : (
               categories.map((category) => (
                 <Link to={`/category/${category._id}`} key={category._id}>
-                  <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                    <div className="h-40 overflow-hidden">
+                  <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full">
+                    <div className="relative pb-[100%] overflow-hidden">
                       <img 
                         src={category.image} 
                         alt={category.name} 
-                        className="w-full h-full object-cover"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                       />
                     </div>
-                    <div className="p-4 text-center">
-                      <h3 className="font-semibold text-lg text-gray-800">{category.name}</h3>
-                      <p className="text-sm text-gray-600 mt-1">{category.productCount || 0} Products</p>
+                    <div className="p-4 text-center flex flex-col justify-between">
+                      <h3 className="font-semibold text-lg text-gray-800 mb-2 line-clamp-1 hover:text-blue-600 transition-colors">{category.name}</h3>
+                      <p className="text-sm text-blue-600 font-medium">{category.productCount || 0} Products</p>
                     </div>
                   </div>
                 </Link>
