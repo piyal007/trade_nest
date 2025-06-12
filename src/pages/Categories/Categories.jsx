@@ -2,60 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Categories = () => {
-  // In a real application, this data would come from an API
-  const [categories, setCategories] = useState([
-    {
-      id: 1,
-      name: 'Electronics & Gadgets',
-      description: 'Wholesale electronics including smartphones, laptops, and accessories',
-      image: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-      productCount: 1250
-    },
-    {
-      id: 2,
-      name: 'Fashion & Apparel',
-      description: 'Clothing, footwear, and fashion accessories for all ages',
-      image: 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-      productCount: 2340
-    },
-    {
-      id: 3,
-      name: 'Home & Kitchen Appliances',
-      description: 'Appliances, kitchenware, and home improvement products',
-      image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1168&q=80',
-      productCount: 1870
-    },
-    {
-      id: 4,
-      name: 'Industrial Machinery & Tools',
-      description: 'Industrial equipment, machinery, and professional tools',
-      image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-      productCount: 980
-    },
-    {
-      id: 5,
-      name: 'Health & Beauty',
-      description: 'Cosmetics, personal care, and health products',
-      image: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-      productCount: 1560
-    },
-    {
-      id: 6,
-      name: 'Automotive Parts & Accessories',
-      description: 'Car parts, accessories, and automotive supplies',
-      image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1283&q=80',
-      productCount: 1120
-    },
-    {
-      id: 7,
-      name: 'Office Supplies & Stationery',
-      description: 'Office equipment, stationery, and business supplies',
-      image: 'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-      productCount: 890
-    }
-  ]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Animation variants removed as framer-motion is not installed
+  // Fetch categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:3000/categories');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch categories');
+        }
+        
+        const data = await response.json();
+        setCategories(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+        setError('Failed to load categories. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   // Update document title when component mounts
   useEffect(() => {
@@ -70,35 +44,57 @@ const Categories = () => {
           <p className="text-gray-600 max-w-2xl mx-auto">Browse our extensive range of wholesale product categories for your business needs</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {categories.map((category) => (
-            <div 
-              key={category.id} 
-              className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl"
+        {loading ? (
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+          </div>
+        ) : error ? (
+          <div className="text-center py-10">
+            <div className="text-red-500 text-xl mb-4">{error}</div>
+            <button 
+              onClick={() => window.location.reload()} 
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
             >
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={category.image} 
-                  alt={category.name} 
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                />
+              Try Again
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categories.length === 0 ? (
+              <div className="col-span-3 text-center py-10">
+                <p className="text-gray-600 text-xl">No categories found.</p>
               </div>
-              <div className="p-6">
-                <h3 className="font-bold text-xl text-gray-800 mb-2">{category.name}</h3>
-                <p className="text-gray-600 mb-4">{category.description}</p>
-                <div className="flex justify-between items-center">
-                  <span className="text-blue-600 font-medium">{category.productCount.toLocaleString()} Products</span>
-                  <Link 
-                    to={`/category/${category.id}`} 
-                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
-                  >
-                    View Products
-                  </Link>
+            ) : (
+              categories.map((category) => (
+                <div 
+                  key={category._id} 
+                  className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl"
+                >
+                  <div className="h-48 overflow-hidden">
+                    <img 
+                      src={category.image} 
+                      alt={category.name} 
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-bold text-xl text-gray-800 mb-2">{category.name}</h3>
+                    <p className="text-gray-600 mb-4">{category.description}</p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-blue-600 font-medium">{category.productCount?.toLocaleString() || 0} Products</span>
+                      <Link 
+                        to={`/category/${category._id}`} 
+                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
+                      >
+                        View Products
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
