@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { toast } from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 const AddProduct = () => {
   const [loading, setLoading] = useState(false);
@@ -57,7 +57,11 @@ const AddProduct = () => {
     try {
       // Validate form data
       if (!formData.image) {
-        toast.error('Please enter a product image URL');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Please enter a product image URL'
+        });
         setLoading(false);
         return;
       }
@@ -66,31 +70,51 @@ const AddProduct = () => {
       try {
         new URL(formData.image);
       } catch (error) {
-        toast.error('Please enter a valid image URL');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Please enter a valid image URL'
+        });
         setLoading(false);
         return;
       }
 
       if (!formData.mainQuantity || parseFloat(formData.mainQuantity) <= 0) {
-        toast.error('Main quantity must be greater than 0');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Main quantity must be greater than 0'
+        });
         setLoading(false);
         return;
       }
 
       if (!formData.minSellingQuantity || parseFloat(formData.minSellingQuantity) <= 0) {
-        toast.error('Minimum selling quantity must be greater than 0');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Minimum selling quantity must be greater than 0'
+        });
         setLoading(false);
         return;
       }
 
       if (!formData.price || parseFloat(formData.price) <= 0) {
-        toast.error('Price must be greater than 0');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Price must be greater than 0'
+        });
         setLoading(false);
         return;
       }
       
       if (!formData.rating || parseFloat(formData.rating) < 1 || parseFloat(formData.rating) > 5) {
-        toast.error('Rating must be between 1 and 5');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Rating must be between 1 and 5'
+        });
         setLoading(false);
         return;
       }
@@ -108,7 +132,11 @@ const AddProduct = () => {
         throw new Error('Failed to add product');
       }
 
-      toast.success('Product added successfully!');
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: 'Product added successfully!'
+      });
       
       // Reset form
       setFormData({
@@ -125,7 +153,11 @@ const AddProduct = () => {
       
     } catch (error) {
       console.error('Error adding product:', error);
-      toast.error('Failed to add product. Please try again.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to add product. Please try again.'
+      });
     } finally {
       setLoading(false);
     }
