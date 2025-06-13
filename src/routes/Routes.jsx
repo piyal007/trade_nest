@@ -8,6 +8,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import Categories from "../pages/Categories/Categories";
 import AddProduct from "../pages/AddProduct/AddProduct";
 import MyProducts from "../pages/MyProducts/MyProducts";
+import AllProducts from "../pages/AllProducts/AllProducts";
 import UpdateProduct from "../pages/UpdateProduct/UpdateProduct";
 
 const router = createBrowserRouter([
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
         element: (          
           <ProtectedRoute>            
             <UpdateProduct />          
+          </ProtectedRoute>        
+        ),      
+      },
+      {        
+        path: "all-products",        
+        element: (          
+          <ProtectedRoute>            
+            <AllProducts />          
           </ProtectedRoute>        
         ),      
       }
