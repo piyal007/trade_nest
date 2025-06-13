@@ -6,13 +6,13 @@ const AddProduct = () => {
   const [formData, setFormData] = useState({
     image: '',
     name: '',
-    mainQuantity: 0,
-    minSellingQuantity: 0,
+    mainQuantity: '',
+    minSellingQuantity: '',
     brandName: '',
     category: '',
     description: '',
-    price: 0,
-    rating: 3
+    price: '',
+    rating: ''
   });
 
   const categories = [
@@ -28,11 +28,11 @@ const AddProduct = () => {
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     
-    // Convert numeric fields to numbers
+    // For numeric fields, allow empty strings but convert valid numbers
     if (type === 'number') {
       setFormData({
         ...formData,
-        [name]: parseFloat(value) || 0
+        [name]: value === '' ? '' : parseFloat(value) || ''
       });
     } else {
       setFormData({
@@ -43,15 +43,11 @@ const AddProduct = () => {
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // In a real application, you would upload this to a storage service
-      // For now, we'll just store the file name
-      setFormData({
-        ...formData,
-        image: file.name
-      });
-    }
+    const { value } = e.target;
+    setFormData({
+      ...formData,
+      image: value
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -61,25 +57,40 @@ const AddProduct = () => {
     try {
       // Validate form data
       if (!formData.image) {
-        toast.error('Please upload a product image');
+        toast.error('Please enter a product image URL');
         setLoading(false);
         return;
       }
 
-      if (formData.mainQuantity <= 0) {
+      // Basic URL validation
+      try {
+        new URL(formData.image);
+      } catch (error) {
+        toast.error('Please enter a valid image URL');
+        setLoading(false);
+        return;
+      }
+
+      if (!formData.mainQuantity || parseFloat(formData.mainQuantity) <= 0) {
         toast.error('Main quantity must be greater than 0');
         setLoading(false);
         return;
       }
 
-      if (formData.minSellingQuantity <= 0) {
+      if (!formData.minSellingQuantity || parseFloat(formData.minSellingQuantity) <= 0) {
         toast.error('Minimum selling quantity must be greater than 0');
         setLoading(false);
         return;
       }
 
-      if (formData.price <= 0) {
+      if (!formData.price || parseFloat(formData.price) <= 0) {
         toast.error('Price must be greater than 0');
+        setLoading(false);
+        return;
+      }
+      
+      if (!formData.rating || parseFloat(formData.rating) < 1 || parseFloat(formData.rating) > 5) {
+        toast.error('Rating must be between 1 and 5');
         setLoading(false);
         return;
       }
@@ -103,17 +114,14 @@ const AddProduct = () => {
       setFormData({
         image: '',
         name: '',
-        mainQuantity: 0,
-        minSellingQuantity: 0,
+        mainQuantity: '',
+        minSellingQuantity: '',
         brandName: '',
         category: '',
         description: '',
-        price: 0,
-        rating: 3
+        price: '',
+        rating: ''
       });
-      
-      // Reset file input
-      document.getElementById('imageUpload').value = '';
       
     } catch (error) {
       console.error('Error adding product:', error);
@@ -124,20 +132,22 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
+    <div className="container mx-auto px-4 py-8" style={{ paddingTop: 'calc(var(--nav-height) + 4rem)' }}>
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 md:p-8">
         <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">Add New Product</h1>
         
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Image Upload */}
           <div className="space-y-2">
-            <label className="block text-gray-700 font-semibold">Product Image</label>
+            <label className="block text-gray-700 font-semibold">Product Image URL</label>
             <input
               id="imageUpload"
-              type="file"
-              accept="image/*"
+              type="url"
+              name="image"
+              value={formData.image}
               onChange={handleImageChange}
-              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter image URL"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -167,7 +177,7 @@ const AddProduct = () => {
                 value={formData.mainQuantity}
                 onChange={handleChange}
                 min="1"
-                placeholder="Enter main quantity"
+                placeholder="0"
                 className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -182,7 +192,7 @@ const AddProduct = () => {
                 value={formData.minSellingQuantity}
                 onChange={handleChange}
                 min="1"
-                placeholder="Enter minimum selling quantity"
+                placeholder="0"
                 className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -235,7 +245,7 @@ const AddProduct = () => {
                 onChange={handleChange}
                 min="0.01"
                 step="0.01"
-                placeholder="Enter price per unit"
+                placeholder="0.0"
                 className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -252,7 +262,7 @@ const AddProduct = () => {
                 min="1"
                 max="5"
                 step="0.1"
-                placeholder="Enter rating"
+                placeholder="Enter rating (1.0 - 5.0)"
                 className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
@@ -278,7 +288,7 @@ const AddProduct = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+              className={`cursor-pointer w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
               {loading ? 'Adding Product...' : 'Add Product'}
             </button>
