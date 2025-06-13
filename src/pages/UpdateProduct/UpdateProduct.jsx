@@ -351,14 +351,14 @@ const UpdateProduct = () => {
             <button
               type="button"
               onClick={() => navigate('/my-products')}
-              className="w-1/2 bg-gray-500 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300"
+              className="cursor-pointer w-1/2 bg-gray-500 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className={`w-1/2 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 ${submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+              className={`cursor-pointer w-1/2 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 ${submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
               {submitting ? 'Updating...' : 'Update Product'}
             </button>

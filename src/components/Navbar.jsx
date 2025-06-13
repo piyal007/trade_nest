@@ -46,7 +46,7 @@ const Navbar = forwardRef((props, ref) => {
 
   return (
     // Apply the ref to the nav element
-    <nav ref={ref} className="bg-white fixed w-full top-0 z-50">
+    <nav ref={ref} className="bg-gray-50 fixed w-full top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between h-16 items-center">
           {/* Logo/Website Name */}
