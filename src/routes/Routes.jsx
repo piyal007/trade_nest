@@ -7,6 +7,8 @@ import Register from "../pages/Register/Register";
 import ProtectedRoute from "../components/ProtectedRoute";
 import Categories from "../pages/Categories/Categories";
 import AddProduct from "../pages/AddProduct/AddProduct";
+import MyProducts from "../pages/MyProducts/MyProducts";
+import UpdateProduct from "../pages/UpdateProduct/UpdateProduct";
 
 const router = createBrowserRouter([
   {
@@ -37,13 +39,29 @@ const router = createBrowserRouter([
         path: "categories",
         Component: Categories,
       },
-      {
-        path: "add-product",
-        element: (
-          <ProtectedRoute>
-            <AddProduct />
-          </ProtectedRoute>
-        ),
+      {        
+        path: "add-product",        
+        element: (          
+          <ProtectedRoute>            
+            <AddProduct />          
+          </ProtectedRoute>        
+        ),      
+      },      
+      {        
+        path: "my-products",        
+        element: (          
+          <ProtectedRoute>            
+            <MyProducts />          
+          </ProtectedRoute>        
+        ),      
+      },      
+      {        
+        path: "update-product/:id",        
+        element: (          
+          <ProtectedRoute>            
+            <UpdateProduct />          
+          </ProtectedRoute>        
+        ),      
       }
     ],
   },

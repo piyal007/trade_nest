@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useAuth } from '../../contexts/AuthContext';
 
-const AddProduct = () => {
-  const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
+const UpdateProduct = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     image: '',
     name: '',
@@ -27,6 +29,43 @@ const AddProduct = () => {
     'Office Supplies & Stationery'
   ];
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`http://localhost:3000/products/${id}`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch product');
+        }
+        
+        const product = await response.json();
+        setFormData({
+          image: product.image || '',
+          name: product.name || '',
+          mainQuantity: product.mainQuantity || '',
+          minSellingQuantity: product.minSellingQuantity || '',
+          brandName: product.brandName || '',
+          category: product.category || '',
+          description: product.description || '',
+          price: product.price || '',
+          rating: product.rating || ''
+        });
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load product details. Please try again.'
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProduct();
+  }, [id]);
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     
@@ -44,17 +83,9 @@ const AddProduct = () => {
     }
   };
 
-  const handleImageChange = (e) => {
-    const { value } = e.target;
-    setFormData({
-      ...formData,
-      image: value
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    setSubmitting(true);
 
     try {
       // Validate form data
@@ -64,7 +95,7 @@ const AddProduct = () => {
           title: 'Error',
           text: 'Please enter a product image URL'
         });
-        setLoading(false);
+        setSubmitting(false);
         return;
       }
 
@@ -77,7 +108,7 @@ const AddProduct = () => {
           title: 'Error',
           text: 'Please enter a valid image URL'
         });
-        setLoading(false);
+        setSubmitting(false);
         return;
       }
 
@@ -87,7 +118,7 @@ const AddProduct = () => {
           title: 'Error',
           text: 'Main quantity must be greater than 0'
         });
-        setLoading(false);
+        setSubmitting(false);
         return;
       }
 
@@ -97,7 +128,7 @@ const AddProduct = () => {
           title: 'Error',
           text: 'Minimum selling quantity must be greater than 0'
         });
-        setLoading(false);
+        setSubmitting(false);
         return;
       }
 
@@ -107,7 +138,7 @@ const AddProduct = () => {
           title: 'Error',
           text: 'Price must be greater than 0'
         });
-        setLoading(false);
+        setSubmitting(false);
         return;
       }
       
@@ -117,65 +148,56 @@ const AddProduct = () => {
           title: 'Error',
           text: 'Rating must be between 1 and 5'
         });
-        setLoading(false);
+        setSubmitting(false);
         return;
       }
 
-      // Add user email to the product data
-      const productData = {
-        ...formData,
-        userEmail: user.email,
-        userName: user.displayName || 'Anonymous'
-      };
-
-      // Send data to the backend
-      const response = await fetch('http://localhost:3000/products', {
-        method: 'POST',
+      // Send update request to the server
+      const response = await fetch(`http://localhost:3000/products/${id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(productData),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add product');
+        throw new Error('Failed to update product');
       }
 
       Swal.fire({
         icon: 'success',
         title: 'Success',
-        text: 'Product added successfully!'
+        text: 'Product updated successfully!'
       });
       
-      // Reset form
-      setFormData({
-        image: '',
-        name: '',
-        mainQuantity: '',
-        minSellingQuantity: '',
-        brandName: '',
-        category: '',
-        description: '',
-        price: '',
-        rating: ''
-      });
+      // Navigate back to My Products page
+      navigate('/my-products');
       
     } catch (error) {
-      console.error('Error adding product:', error);
+      console.error('Error updating product:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Failed to add product. Please try again.'
+        text: 'Failed to update product. Please try again.'
       });
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen" style={{ paddingTop: 'var(--nav-height)' }}>
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8" style={{ paddingTop: 'calc(var(--nav-height) + 4rem)' }}>
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 md:p-8">
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">Add New Product</h1>
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">Update Product</h1>
         
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Image Upload */}
@@ -186,7 +208,7 @@ const AddProduct = () => {
               type="url"
               name="image"
               value={formData.image}
-              onChange={handleImageChange}
+              onChange={handleChange}
               placeholder="Enter image URL"
               className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
@@ -325,31 +347,26 @@ const AddProduct = () => {
           </div>
           
           {/* Submit Button */}
-          <div className="pt-4">
+          <div className="pt-4 flex space-x-4">
+            <button
+              type="button"
+              onClick={() => navigate('/my-products')}
+              className="w-1/2 bg-gray-500 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300"
+            >
+              Cancel
+            </button>
             <button
               type="submit"
-              disabled={loading}
-              className={`cursor-pointer w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+              disabled={submitting}
+              className={`w-1/2 bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300 ${submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
-              {loading ? 'Adding Product...' : 'Add Product'}
+              {submitting ? 'Updating...' : 'Update Product'}
             </button>
           </div>
         </form>
-        
-        {/* Product Content - Static information */}
-        <div className="mt-12 p-6 bg-gray-50 rounded-lg border border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Wholesale Product Guidelines</h2>
-          <ul className="list-disc pl-5 space-y-2 text-gray-700">
-            <li>All products must meet quality standards for B2B wholesale distribution</li>
-            <li>Set competitive pricing for bulk purchases to attract retailers</li>
-            <li>Ensure accurate inventory counts to prevent stockouts</li>
-            <li>Minimum selling quantity should reflect wholesale business model</li>
-            <li>Provide detailed product descriptions to help buyers make informed decisions</li>
-          </ul>
-        </div>
       </div>
     </div>
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;
