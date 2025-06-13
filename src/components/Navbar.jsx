@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.config';
 import Swal from 'sweetalert2';
 
-const Navbar = () => {
+// Using forwardRef to pass ref from parent component
+const Navbar = forwardRef((props, ref) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -45,7 +46,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white fixed w-full top-0 z-50">
+    // Apply the ref to the nav element
+    <nav ref={ref} className="bg-white fixed w-full top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between h-16 items-center">
           {/* Logo/Website Name */}
@@ -318,6 +320,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
+});
 
 export default Navbar;

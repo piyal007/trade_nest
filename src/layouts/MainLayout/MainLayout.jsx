@@ -32,9 +32,8 @@ const MainLayout = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div ref={navbarRef} className="w-full z-50">
-        <Navbar />
-      </div>
+      {/* Pass the ref directly to Navbar component */}
+      <Navbar ref={navbarRef} />
       <main className="flex-grow">
         <Outlet />
       </main>
