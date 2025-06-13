@@ -5,7 +5,6 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../Firebase/firebase.config';
 import Swal from 'sweetalert2';
 
-// Using forwardRef to pass ref from parent component
 const Navbar = forwardRef((props, ref) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user } = useAuth();

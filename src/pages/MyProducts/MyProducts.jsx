@@ -123,64 +123,69 @@ const MyProducts = () => {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="flex flex-col gap-6">
         {products.map((product) => (
-          <div key={product._id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
-            <div className="relative pb-[60%] overflow-hidden bg-gray-200">
-              <img 
-                src={product.image} 
-                alt={product.name} 
-                className="absolute h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-              />
+          <div key={product._id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300 flex flex-col md:flex-row w-full">
+            <div className="md:w-1/4 relative">
+              <div className="h-full w-full">
+                <img 
+                  src={product.image} 
+                  alt={product.name} 
+                  className="h-full w-full object-cover transition-transform duration-300 hover:scale-105 min-h-[200px]"
+                />
+              </div>
             </div>
             
-            <div className="p-4">
-              <h2 className="text-xl font-semibold text-gray-800 mb-2 line-clamp-1">{product.name}</h2>
-              
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium text-gray-500">{product.category}</span>
-                <span className="text-sm font-medium text-blue-600">{product.brandName}</span>
-              </div>
-              
-              <p className="text-gray-600 text-sm mb-3 line-clamp-2">{product.description}</p>
-              
-              <div className="flex justify-between items-center mb-3">
-                <div className="text-gray-700">
-                  <span className="font-bold text-lg">${product.price}</span>
-                  <span className="text-xs ml-1">per unit</span>
+            <div className="p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <h2 className="text-2xl font-semibold text-gray-800">{product.name}</h2>
+                  <div className="flex items-center">
+                    <span className="text-yellow-500 mr-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    </span>
+                    <span className="font-medium">{product.rating}</span>
+                  </div>
                 </div>
                 
-                <div className="flex items-center">
-                  <span className="text-yellow-500 mr-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  </span>
-                  <span className="font-medium">{product.rating}</span>
+                <div className="flex items-center mb-3">
+                  <span className="text-sm font-medium text-gray-500 mr-4">{product.category}</span>
+                  <span className="text-sm font-medium text-blue-600">{product.brandName}</span>
+                </div>
+                
+                <p className="text-gray-600 mb-4">{product.description}</p>
+                
+                <div className="flex flex-wrap gap-4 mb-4">
+                  <div className="bg-gray-100 p-3 rounded-lg">
+                    <span className="block text-gray-500 text-xs">Price</span>
+                    <span className="font-bold text-lg text-gray-700">${product.price}</span>
+                    <span className="text-xs ml-1">per unit</span>
+                  </div>
+                  
+                  <div className="bg-gray-100 p-3 rounded-lg">
+                    <span className="block text-gray-500 text-xs">Available</span>
+                    <span className="font-medium">{product.mainQuantity} units</span>
+                  </div>
+                  
+                  <div className="bg-gray-100 p-3 rounded-lg">
+                    <span className="block text-gray-500 text-xs">Min. Order</span>
+                    <span className="font-medium">{product.minSellingQuantity} units</span>
+                  </div>
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 gap-2 text-sm">
-                <div className="bg-gray-100 p-2 rounded">
-                  <span className="block text-gray-500 text-xs">Available</span>
-                  <span className="font-medium">{product.mainQuantity} units</span>
-                </div>
-                <div className="bg-gray-100 p-2 rounded">
-                  <span className="block text-gray-500 text-xs">Min. Order</span>
-                  <span className="font-medium">{product.minSellingQuantity} units</span>
-                </div>
-              </div>
-              
-              <div className="mt-4 flex justify-between">
+              <div className="flex gap-4 mt-auto">
                 <Link 
                   to={`/update-product/${product._id}`} 
-                  className="px-4 py-2 bg-amber-500 text-white rounded hover:bg-amber-600 transition-colors duration-300 text-sm font-medium flex-1 mr-2 text-center"
+                  className="px-6 py-2.5 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors duration-300 text-sm font-medium text-center"
                 >
                   Update
                 </Link>
                 <button 
                   onClick={() => handleDelete(product._id)} 
-                  className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors duration-300 text-sm font-medium flex-1 ml-2"
+                  className="px-6 py-2.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-300 text-sm font-medium"
                 >
                   Delete
                 </button>
