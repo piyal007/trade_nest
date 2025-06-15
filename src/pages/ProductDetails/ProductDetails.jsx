@@ -151,15 +151,63 @@ const ProductDetails = () => {
         
         return { address, phone };
       }
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        // Here you would typically send the order to your backend
-        // For now, just show a success message
-        Swal.fire({
-          title: 'Order Placed!',
-          text: 'Your order has been successfully placed.',
-          icon: 'success'
-        });
+        try {
+          // Show loading state
+          Swal.fire({
+            title: 'Processing',
+            text: 'Processing your purchase...',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+          
+          // Send purchase request to the server
+          const response = await fetch(`http://localhost:3000/products/purchase/${id}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              quantity,
+              address: result.value.address,
+              phone: result.value.phone,
+              userEmail: user.email,
+              userName: user.displayName
+            })
+          });
+          
+          const data = await response.json();
+          
+          if (!response.ok) {
+            throw new Error(data.error || 'Failed to process purchase');
+          }
+          
+          // Update the local product state with the new quantity
+          setProduct(prev => ({
+            ...prev,
+            mainQuantity: data.updatedQuantity
+          }));
+          
+          // Reset quantity to minimum selling quantity
+          setQuantity(product.minSellingQuantity);
+          
+          // Show success message
+          Swal.fire({
+            title: 'Order Placed!',
+            text: 'Your order has been successfully placed.',
+            icon: 'success'
+          });
+        } catch (error) {
+          console.error('Purchase error:', error);
+          Swal.fire({
+            title: 'Purchase Failed',
+            text: error.message || 'Failed to process your purchase. Please try again.',
+            icon: 'error'
+          });
+        }
       }
     });
   };
@@ -181,7 +229,7 @@ const ProductDetails = () => {
           <p className="text-red-500 mb-4">{error}</p>
           <button 
             onClick={() => window.location.reload()} 
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            className="cursor-pointer px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
           >
             Try Again
           </button>
@@ -207,7 +255,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 pb-8 pt-18">
       <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
         <div className="flex flex-col lg:flex-row">
           {/* Product Image */}
@@ -326,7 +374,7 @@ const ProductDetails = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <button 
                   onClick={handleBuy}
-                  className="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 text-base font-medium shadow-md flex-1 flex items-center justify-center"
+                  className="cursor-pointer px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 text-base font-medium shadow-md flex-1 flex items-center justify-center"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
