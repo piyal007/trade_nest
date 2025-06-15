@@ -103,15 +103,15 @@ const AllProducts = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => (
-          <div key={product._id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col md:flex-row w-full transform hover:-translate-y-1">
-            <div className="md:w-1/4 relative group">
+          <div key={product._id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
+            <div className="relative group h-48">
               <div className="h-full w-full overflow-hidden">
                 <img 
                   src={product.image} 
                   alt={product.name} 
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110 min-h-[240px]"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/600 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
@@ -120,72 +120,69 @@ const AllProducts = () => {
               </div>
             </div>
             
-            <div className="p-8 flex-1 flex flex-col justify-between">
+            <div className="p-5 flex-1 flex flex-col justify-between">
               <div>
-                <div className="flex flex-col md:flex-row justify-between items-start mb-3 gap-2">
-                  <h2 className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300">{product.name}</h2>
-                  <div className="flex items-center bg-gradient-to-r from-amber-50 to-yellow-50 px-4 py-2 rounded-lg shadow-sm border border-amber-100 self-start">
+                <div className="flex flex-col justify-between items-start mb-3 gap-2">
+                  <h2 className="text-xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300 line-clamp-1">{product.name}</h2>
+                  <div className="flex items-center bg-gradient-to-r from-amber-50 to-yellow-50 px-3 py-1 rounded-lg shadow-sm border border-amber-100 self-start">
                     <Rating
                       initialValue={product.rating}
                       readonly={true}
-                      size={24}
+                      size={18}
                       fillColor="#f59e0b"
                       emptyColor="#e5e7eb"
                       allowFraction={true}
-                      className="mr-2 flex flex-row gap-1"
+                      className="mr-1 flex flex-row gap-1"
                       style={{
                         display: 'flex',
                         flexDirection: 'row',
-                        gap: '4px',
+                        gap: '2px',
                         alignItems: 'center'
                       }}
                       SVGstyle={{
                         display: 'inline-block',
-                        marginRight: '2px'
+                        marginRight: '1px'
                       }}
                       transition
                     />
-                    <span className="font-medium text-amber-700 ml-1">{product.rating.toFixed(1)}</span>
+                    <span className="font-medium text-amber-700 ml-1 text-sm">{product.rating.toFixed(1)}</span>
                   </div>
                 </div>
                 
-                <div className="flex items-center mb-4">
-                  <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{product.brandName}</span>
+                <div className="flex items-center mb-3">
+                  <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">{product.brandName}</span>
                 </div>
                 
-                <p className="text-gray-600 mb-6 leading-relaxed">{product.description}</p>
+                <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">{product.description}</p>
                 
-                <div className="flex flex-wrap gap-4 mb-6">
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100">
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-2 rounded-lg border border-blue-100">
                     <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Price</span>
                     <div className="flex items-baseline">
-                      <span className="font-bold text-2xl text-gray-800">${product.price}</span>
-                      <span className="text-xs ml-1 text-gray-500">per unit</span>
+                      <span className="font-bold text-lg text-gray-800">${product.price}</span>
                     </div>
                   </div>
                   
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-xl border border-green-100">
-                    <span className="block text-green-600 text-xs font-semibold uppercase tracking-wide mb-1">Available</span>
+                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-2 rounded-lg border border-green-100">
+                    <span className="block text-green-600 text-xs font-semibold uppercase tracking-wide mb-1">Qty</span>
                     <div className="flex items-baseline">
-                      <span className="font-bold text-xl text-gray-800">{product.mainQuantity}</span>
-                      <span className="text-xs ml-1 text-gray-500">units</span>
+                      <span className="font-bold text-lg text-gray-800">{product.mainQuantity}</span>
                     </div>
                   </div>
                   
-                  <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-4 rounded-xl border border-amber-100">
-                    <span className="block text-amber-600 text-xs font-semibold uppercase tracking-wide mb-1">Min. Order</span>
+                  <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-2 rounded-lg border border-amber-100">
+                    <span className="block text-amber-600 text-xs font-semibold uppercase tracking-wide mb-1">Min</span>
                     <div className="flex items-baseline">
-                      <span className="font-bold text-xl text-gray-800">{product.minSellingQuantity}</span>
-                      <span className="text-xs ml-1 text-gray-500">units</span>
+                      <span className="font-bold text-lg text-gray-800">{product.minSellingQuantity}</span>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <div className="flex gap-4 mt-auto">
+              <div className="mt-auto">
                 <Link 
                   to={`/update-product/${product._id}`} 
-                  className="px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:from-amber-600 hover:to-amber-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
+                  className="w-full px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:from-amber-600 hover:to-amber-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />

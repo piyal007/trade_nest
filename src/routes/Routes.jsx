@@ -10,6 +10,8 @@ import AddProduct from "../pages/AddProduct/AddProduct";
 import MyProducts from "../pages/MyProducts/MyProducts";
 import AllProducts from "../pages/AllProducts/AllProducts";
 import UpdateProduct from "../pages/UpdateProduct/UpdateProduct";
+import CategoryProducts from "../pages/CategoryProducts/CategoryProducts";
+import ProductDetails from "../pages/ProductDetails/ProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +73,14 @@ const router = createBrowserRouter([
             <AllProducts />          
           </ProtectedRoute>        
         ),      
+      },
+      {        
+        path: "category/:id",        
+        element: <CategoryProducts />,      
+      },
+      {        
+        path: "product/:id",        
+        element: <ProductDetails />,      
       }
     ],
   },
