@@ -121,11 +121,17 @@ const AddProduct = () => {
         return;
       }
 
+      // Add a function to convert category names to slugs
+      const categoryToSlug = (categoryName) => {
+        return categoryName.toLowerCase().replace(/[&\s]+/g, '_');
+      };
+
       // Add user email to the product data
       const productData = {
         ...formData,
         userEmail: user.email,
-        userName: user.displayName || 'Anonymous'
+        userName: user.displayName || 'Anonymous',
+        categorySlug: categoryToSlug(formData.category)
       };
 
       // Send data to the backend

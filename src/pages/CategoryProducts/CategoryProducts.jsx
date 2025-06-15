@@ -24,12 +24,20 @@ const CategoryProducts = () => {
         const categoryData = await categoryResponse.json();
         setCategory(categoryData);
         
+        // Add a function to convert category names to slugs
+        const categoryToSlug = (categoryName) => {
+          return categoryName.toLowerCase().replace(/[&\s]+/g, '_');
+        };
+        
         // Then, fetch products for this category
         // Log the category name for debugging
         console.log('Fetching products for category:', categoryData.name);
         
-        // First try exact match
-        let productsResponse = await fetch(`http://localhost:3000/products?category=${encodeURIComponent(categoryData.name)}`);
+        // Generate slug from category name
+        const categorySlug = categoryToSlug(categoryData.name);
+        
+        // First try with slug
+        let productsResponse = await fetch(`http://localhost:3000/products?category=${encodeURIComponent(categorySlug)}`);
         
         if (!productsResponse.ok) {
           throw new Error('Failed to fetch products');
