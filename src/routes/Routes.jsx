@@ -12,6 +12,7 @@ import AllProducts from "../pages/AllProducts/AllProducts";
 import UpdateProduct from "../pages/UpdateProduct/UpdateProduct";
 import CategoryProducts from "../pages/CategoryProducts/CategoryProducts";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
+import Cart from "../pages/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,14 @@ const router = createBrowserRouter([
       {        
         path: "product/:id",        
         element: <ProductDetails />,      
+      },
+      {        
+        path: "cart",        
+        element: (          
+          <ProtectedRoute>            
+            <Cart />          
+          </ProtectedRoute>        
+        ),      
       }
     ],
   },
