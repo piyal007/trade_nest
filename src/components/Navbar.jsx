@@ -78,17 +78,6 @@ const Navbar = forwardRef((props, ref) => {
             >
               Categories
             </NavLink>
-            <NavLink
-              to="/cart"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-blue-600 font-medium text-sm"
-                  : "text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
-              }
-            >
-              Cart
-            </NavLink>
-
             {/* Protected Routes - Only visible when logged in */}
             {user && (
               <>
@@ -124,6 +113,16 @@ const Navbar = forwardRef((props, ref) => {
                 </NavLink>
               </>
             )}
+            <NavLink
+              to="/cart"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-600 font-medium text-sm"
+                  : "text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+              }
+            >
+              Cart
+            </NavLink>
           </div>
 
           {/* Auth Buttons - Desktop */}
@@ -228,17 +227,6 @@ const Navbar = forwardRef((props, ref) => {
             >
               Categories
             </NavLink>
-            <NavLink
-              to="/cart"
-              className={({ isActive }) =>
-                isActive
-                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
-                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
-              }
-            >
-              Cart
-            </NavLink>
-
             {user && (
               <>
                 <NavLink
@@ -273,7 +261,16 @@ const Navbar = forwardRef((props, ref) => {
                 </NavLink>
               </>
             )}
-
+            <NavLink
+              to="/cart"
+              className={({ isActive }) =>
+                isActive
+                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
+                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+              }
+            >
+              Cart
+            </NavLink>
             {/* Mobile Auth Buttons */}
             <div className="pt-4 pb-3 border-t border-gray-200">
               {user ? (
