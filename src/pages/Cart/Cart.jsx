@@ -178,17 +178,22 @@ const Cart = () => {
                 </span>
               </div>
               
-              <div className="flex items-center mb-3">
-                <Rating
-                  initialValue={item.product.rating}
-                  readonly={true}
-                  size={20}
-                  fillColor="#f59e0b"
-                  emptyColor="#e5e7eb"
-                  allowFraction={true}
-                  className="mr-2"
-                />
-                <span className="text-sm text-gray-600">{item.product.rating.toFixed(1)}</span>
+              <div className="flex items-center mb-3 bg-gray-50 p-2 rounded-lg">
+                <span className="text-xs text-gray-500 mr-2">Rating:</span>
+                <div className="flex items-center">
+                  <Rating
+                    initialValue={item.product.rating}
+                    readonly={true}
+                    size={18}
+                    fillColor="#f59e0b"
+                    emptyColor="#e5e7eb"
+                    allowFraction={true}
+                    className="mr-2"
+                    style={{ display: 'flex', flexDirection: 'row' }}
+                    SVGstyle={{ display: 'inline-block', marginRight: '2px' }}
+                  />
+                  <span className="font-semibold text-gray-800">{item.product.rating.toFixed(1)}</span>
+                </div>
               </div>
               
               <div className="mb-4">

@@ -52,6 +52,21 @@ const ProductDetails = () => {
       setQuantity(prevQuantity => prevQuantity - 1);
     }
   };
+  
+  // Validate quantity when it changes directly
+  const validateQuantity = (value) => {
+    const parsedValue = parseInt(value);
+    if (isNaN(parsedValue)) {
+      return product.minSellingQuantity;
+    }
+    if (parsedValue < product.minSellingQuantity) {
+      return product.minSellingQuantity;
+    }
+    if (parsedValue > product.mainQuantity) {
+      return product.mainQuantity;
+    }
+    return parsedValue;
+  };
 
   const handleBuy = () => {
     if (!user) {
@@ -80,12 +95,15 @@ const ProductDetails = () => {
       return;
     }
 
+    // Ensure quantity doesn't exceed available inventory
     if (quantity > product.mainQuantity) {
       Swal.fire({
         title: 'Invalid Quantity',
         text: `Maximum available quantity is ${product.mainQuantity}`,
         icon: 'error'
       });
+      // Reset quantity to maximum available
+      setQuantity(product.mainQuantity);
       return;
     }
 
@@ -163,6 +181,11 @@ const ProductDetails = () => {
               Swal.showLoading();
             }
           });
+          
+          // Final validation before sending request
+          if (quantity > product.mainQuantity) {
+            throw new Error(`Cannot purchase more than the available quantity (${product.mainQuantity} units)`);
+          }
           
           // Send purchase request to the server
           const response = await fetch(`http://localhost:3000/products/purchase/${id}`, {
@@ -348,9 +371,14 @@ const ProductDetails = () => {
                       <path fillRule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
                     </svg>
                   </button>
-                  <div className="w-16 h-10 flex items-center justify-center border-t border-b border-gray-300 text-lg font-medium">
-                    {quantity}
-                  </div>
+                  <input 
+                    type="number" 
+                    value={quantity}
+                    onChange={(e) => setQuantity(validateQuantity(e.target.value))}
+                    min={product.minSellingQuantity}
+                    max={product.mainQuantity}
+                    className="w-16 h-10 text-center border-t border-b border-gray-300 text-lg font-medium"
+                  />
                   <button 
                     onClick={handleIncreaseQuantity}
                     disabled={quantity >= product.mainQuantity}
