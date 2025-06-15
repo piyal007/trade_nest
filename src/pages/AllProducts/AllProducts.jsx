@@ -4,6 +4,8 @@ import { Rating } from 'react-simple-star-rating';
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [showAvailable, setShowAvailable] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -20,6 +22,7 @@ const AllProducts = () => {
         
         const data = await response.json();
         setProducts(data);
+        setFilteredProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
         setError('Failed to load products. Please try again.');
@@ -30,6 +33,18 @@ const AllProducts = () => {
     
     fetchAllProducts();
   }, []);
+  
+  // Filter products when showAvailable changes
+  useEffect(() => {
+    if (showAvailable) {
+      // Filter products with minSellingQuantity > 100
+      const available = products.filter(product => product.minSellingQuantity > 100);
+      setFilteredProducts(available);
+    } else {
+      // Show all products
+      setFilteredProducts(products);
+    }
+  }, [showAvailable, products]);
 
   if (loading) {
     return (
@@ -73,7 +88,8 @@ const AllProducts = () => {
     );
   }
 
-  if (products.length === 0) {
+  // Check if there are no products at all or no products matching the filter
+  if (products.length === 0 || (showAvailable && filteredProducts.length === 0)) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-50" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
         <div className="bg-white rounded-xl shadow-lg p-10 max-w-2xl mx-auto text-center">
@@ -82,8 +98,22 @@ const AllProducts = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
             </svg>
           </div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">No Products Available</h2>
-          <p className="text-gray-600 mb-8 text-lg">There are currently no products in the inventory</p>
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+            {products.length === 0 ? 'No Products Available' : 'No Products Match Filter'}
+          </h2>
+          <p className="text-gray-600 mb-8 text-lg">
+            {products.length === 0 
+              ? 'There are currently no products in the inventory' 
+              : 'No products with minimum selling quantity greater than 100'}
+          </p>
+          {showAvailable && filteredProducts.length === 0 && products.length > 0 && (
+            <button 
+              onClick={() => setShowAvailable(false)}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Show All Products
+            </button>
+          )}
         </div>
       </div>
     );
@@ -101,10 +131,21 @@ const AllProducts = () => {
           </h1>
           <p className="text-gray-600 mt-1">Browse all available products</p>
         </div>
+        <div>
+          <button 
+            onClick={() => setShowAvailable(!showAvailable)}
+            className={`px-4 py-2 rounded-lg font-medium flex items-center transition-colors ${showAvailable ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+            </svg>
+            {showAvailable ? 'Show All Products' : 'Show Available Products'}
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div key={product._id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
             <div className="relative group h-48">
               <div className="h-full w-full overflow-hidden">

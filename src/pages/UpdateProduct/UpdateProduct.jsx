@@ -162,7 +162,7 @@ const UpdateProduct = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update product');
+        throw new Error('Failed to all-products product');
       }
 
       Swal.fire({
@@ -172,7 +172,7 @@ const UpdateProduct = () => {
       });
       
       // Navigate back to My Products page
-      navigate('/my-products');
+      navigate('/all-products');
       
     } catch (error) {
       console.error('Error updating product:', error);
