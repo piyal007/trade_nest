@@ -6,6 +6,7 @@ const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [showAvailable, setShowAvailable] = useState(false);
+  const [viewMode, setViewMode] = useState('card'); // 'card' or 'table'
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -131,7 +132,50 @@ const AllProducts = () => {
           </h1>
           <p className="text-gray-600 mt-1">Browse all available products</p>
         </div>
-        <div>
+        <div className="flex flex-col sm:flex-row gap-3">
+          {/* View Toggle Dropdown */}
+          <div className="relative">
+            <button 
+              className="px-4 py-2 rounded-lg font-medium flex items-center bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors"
+              onClick={() => document.getElementById('viewDropdown').classList.toggle('hidden')}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                {viewMode === 'card' ? (
+                  <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                ) : (
+                  <path fillRule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clipRule="evenodd" />
+                )}
+              </svg>
+              {viewMode === 'card' ? 'Card View' : 'Table View'}
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div id="viewDropdown" className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-10">
+              <div className="py-1">
+                <button 
+                  onClick={() => {
+                    setViewMode('card');
+                    document.getElementById('viewDropdown').classList.add('hidden');
+                  }}
+                  className={`block w-full text-left px-4 py-2 text-sm ${viewMode === 'card' ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-100'}`}
+                >
+                  Card View
+                </button>
+                <button 
+                  onClick={() => {
+                    setViewMode('table');
+                    document.getElementById('viewDropdown').classList.add('hidden');
+                  }}
+                  className={`block w-full text-left px-4 py-2 text-sm ${viewMode === 'table' ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-100'}`}
+                >
+                  Table View
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          {/* Filter Button */}
           <button 
             onClick={() => setShowAvailable(!showAvailable)}
             className={`px-4 py-2 rounded-lg font-medium flex items-center transition-colors ${showAvailable ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
@@ -144,97 +188,186 @@ const AllProducts = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProducts.map((product) => (
-          <div key={product._id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
-            <div className="relative group h-48">
-              <div className="h-full w-full overflow-hidden">
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/600 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-                {product.category}
-              </div>
-            </div>
-            
-            <div className="p-5 flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex flex-col justify-between items-start mb-3 gap-2">
-                  <h2 className="text-xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300 line-clamp-1">{product.name}</h2>
-                  <div className="flex items-center bg-gradient-to-r from-amber-50 to-yellow-50 px-3 py-1 rounded-lg shadow-sm border border-amber-100 self-start">
-                    <Rating
-                      initialValue={product.rating}
-                      readonly={true}
-                      size={18}
-                      fillColor="#f59e0b"
-                      emptyColor="#e5e7eb"
-                      allowFraction={true}
-                      className="mr-1 flex flex-row gap-1"
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: '2px',
-                        alignItems: 'center'
-                      }}
-                      SVGstyle={{
-                        display: 'inline-block',
-                        marginRight: '1px'
-                      }}
-                      transition
-                    />
-                    <span className="font-medium text-amber-700 ml-1 text-sm">{product.rating.toFixed(1)}</span>
-                  </div>
+            {/* Product Display - Card or Table View */}
+      {viewMode === 'card' ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredProducts.map((product) => (
+            <div key={product._id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
+              <div className="relative group h-48">
+                <div className="h-full w-full overflow-hidden">
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/600 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
-                
-                <div className="flex items-center mb-3">
-                  <span className="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">{product.brandName}</span>
+                <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  {product.category}
                 </div>
-                
-                <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">{product.description}</p>
-                
-                <div className="grid grid-cols-3 gap-2 mb-4">
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-2 rounded-lg border border-blue-100">
-                    <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Price</span>
-                    <div className="flex items-baseline">
-                      <span className="font-bold text-lg text-gray-800">${product.price}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-2 rounded-lg border border-green-100">
-                    <span className="block text-green-600 text-xs font-semibold uppercase tracking-wide mb-1">Qty</span>
-                    <div className="flex items-baseline">
-                      <span className="font-bold text-lg text-gray-800">{product.mainQuantity}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-2 rounded-lg border border-amber-100">
-                    <span className="block text-amber-600 text-xs font-semibold uppercase tracking-wide mb-1">Min</span>
-                    <div className="flex items-baseline">
-                      <span className="font-bold text-lg text-gray-800">{product.minSellingQuantity}</span>
-                    </div>
-                  </div>
+                <div className="absolute top-3 right-3 bg-blue-100 text-blue-600 text-xs font-bold px-2 py-1 rounded-full">
+                  {product.brandName}
                 </div>
               </div>
               
-              <div className="mt-auto">
-                <Link 
-                  to={`/update-product/${product._id}`} 
-                  className="w-full px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:from-amber-600 hover:to-amber-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                  </svg>
-                  Update
-                </Link>
+              <div className="p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <div className="flex flex-col justify-between items-start mb-3 gap-2">
+                    <h2 className="text-xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300 line-clamp-1">{product.name}</h2>
+                    <div className="flex items-center bg-gradient-to-r from-amber-50 to-yellow-50 px-3 py-1 rounded-lg shadow-sm border border-amber-100 self-start">
+                      <Rating
+                        initialValue={product.rating}
+                        readonly={true}
+                        size={18}
+                        fillColor="#f59e0b"
+                        emptyColor="#e5e7eb"
+                        allowFraction={true}
+                        className="mr-1 flex flex-row gap-1"
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          gap: '2px',
+                          alignItems: 'center'
+                        }}
+                        SVGstyle={{
+                          display: 'inline-block',
+                          marginRight: '1px'
+                        }}
+                        transition
+                      />
+                      <span className="font-medium text-amber-700 ml-1 text-sm">{product.rating.toFixed(1)}</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">{product.description}</p>
+                  
+                  <div className="grid grid-cols-3 gap-2 mb-4">
+                    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-2 rounded-lg border border-blue-100">
+                      <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Price</span>
+                      <div className="flex items-baseline">
+                        <span className="font-bold text-lg text-gray-800">${product.price}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-2 rounded-lg border border-green-100">
+                      <span className="block text-green-600 text-xs font-semibold uppercase tracking-wide mb-1">Qty</span>
+                      <div className="flex items-baseline">
+                        <span className="font-bold text-lg text-gray-800">{product.mainQuantity}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-2 rounded-lg border border-amber-100">
+                      <span className="block text-amber-600 text-xs font-semibold uppercase tracking-wide mb-1">Min</span>
+                      <div className="flex items-baseline">
+                        <span className="font-bold text-lg text-gray-800">{product.minSellingQuantity}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-auto">
+                  <Link 
+                    to={`/update-product/${product._id}`} 
+                    className="w-full px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:from-amber-600 hover:to-amber-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                    </svg>
+                    Update
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="overflow-x-auto bg-white rounded-xl shadow-lg border border-gray-100">
+          <table className="w-full table-fixed divide-y divide-gray-200">
+            <colgroup>
+              <col className="w-1/4" /> {/* Product - wider */}
+              <col className="w-1/6" /> {/* Category & Brand */}
+              <col className="w-1/12" /> {/* Rating */}
+              <col className="w-1/12" /> {/* Price */}
+              <col className="w-1/12" /> {/* Available */}
+              <col className="w-1/12" /> {/* Min Order */}
+              <col className="w-1/12" /> {/* Actions */}
+            </colgroup>
+            <thead className="bg-gray-50">
+              <tr className="border-b border-gray-200">
+                <th scope="col" className="px-4 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Product</th>
+                <th scope="col" className="px-3 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Category & Brand</th>
+                <th scope="col" className="px-3 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Rating</th>
+                <th scope="col" className="px-3 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Price</th>
+                <th scope="col" className="px-3 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Available</th>
+                <th scope="col" className="px-3 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Min Order</th>
+                <th scope="col" className="px-3 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white">
+              {filteredProducts.map((product, index) => (
+                <tr key={product._id} className={`hover:bg-blue-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                  <td className="px-4 py-5 border-b border-gray-100">
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0 h-12 w-12 mr-3">
+                        <img className="h-12 w-12 rounded-lg object-cover shadow-sm border border-gray-200" src={product.image} alt={product.name} />
+                      </div>
+                      <div className="overflow-hidden">
+                        <div className="text-sm font-semibold text-gray-900 truncate">{product.name}</div>
+                        <div className="text-xs text-gray-500 line-clamp-1 mt-1">{product.description}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-3 py-5 border-b border-gray-100">
+                    <div className="flex flex-col space-y-2">
+                      <span className="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 truncate">
+                        {product.category}
+                      </span>
+                      <span className="px-2.5 py-1 inline-flex text-xs leading-5 font-medium rounded-full bg-gray-100 text-gray-700 truncate">
+                        {product.brandName}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-3 py-5 border-b border-gray-100">
+                    <div className="inline-flex items-center bg-amber-50 px-3 py-1.5 rounded-md">
+                      <Rating
+                        initialValue={product.rating}
+                        readonly={true}
+                        size={14}
+                        fillColor="#f59e0b"
+                        emptyColor="#e5e7eb"
+                        allowFraction={true}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          gap: '2px',
+                          alignItems: 'center'
+                        }}
+                        SVGstyle={{
+                          display: 'inline-block',
+                          marginRight: '1px'
+                        }}
+                      />
+                      <span className="text-xs font-medium text-amber-700 ml-2">{product.rating.toFixed(1)}</span>
+                    </div>
+                  </td>
+                  <td className="px-3 py-5 border-b border-gray-100 text-sm font-bold text-blue-600">${product.price}</td>
+                  <td className="px-3 py-5 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-green-50 px-3 py-1.5 rounded-md inline-block text-center">{product.mainQuantity}</span>
+                  </td>
+                  <td className="px-3 py-5 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700 bg-amber-50 px-3 py-1.5 rounded-md inline-block text-center">{product.minSellingQuantity}</span>
+                  </td>
+                  <td className="px-3 py-5 border-b border-gray-100 text-sm font-medium">
+                    <Link to={`/update-product/${product._id}`} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-md transition-colors duration-200 inline-block text-center text-xs font-medium">
+                      Update
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };
