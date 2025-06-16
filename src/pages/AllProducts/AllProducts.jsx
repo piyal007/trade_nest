@@ -282,7 +282,83 @@ const AllProducts = () => {
         </div>
       ) : (
         <div className="overflow-x-auto bg-white rounded-xl shadow-lg border border-gray-100">
-          <table className="w-full table-fixed divide-y divide-gray-200">
+          {/* Mobile card view for small screens */}
+          <div className="block md:hidden">
+            {filteredProducts.map((product, index) => (
+              <div key={product._id} className={`p-4 border-b ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} transition-all duration-200 hover:bg-blue-50`}>
+                <div className="flex items-start mb-4">
+                  <div className="flex-shrink-0 h-20 w-20 mr-4">
+                    <img className="h-20 w-20 rounded-lg object-cover shadow-sm border border-gray-200" src={product.image} alt={product.name} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm font-semibold text-gray-900 truncate">{product.name}</h3>
+                    <p className="text-xs text-gray-500 line-clamp-2 mt-1">{product.description}</p>
+                    
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <span className="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 truncate">
+                        {product.category}
+                      </span>
+                      <span className="px-2.5 py-0.5 inline-flex text-xs leading-5 font-medium rounded-full bg-gray-100 text-gray-700 truncate">
+                        {product.brandName}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                    <span className="block text-xs font-medium text-gray-500 mb-1.5">Rating</span>
+                    <div className="inline-flex items-center bg-amber-50 px-2.5 py-1.5 rounded-md w-full">
+                      <Rating
+                        initialValue={product.rating}
+                        readonly={true}
+                        size={14}
+                        fillColor="#f59e0b"
+                        emptyColor="#e5e7eb"
+                        allowFraction={true}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          gap: '1px',
+                          alignItems: 'center'
+                        }}
+                        SVGstyle={{
+                          display: 'inline-block',
+                          marginRight: '1px'
+                        }}
+                      />
+                      <span className="text-xs font-medium text-amber-700 ml-1.5">{product.rating.toFixed(1)}</span>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                    <span className="block text-xs font-medium text-gray-500 mb-1.5">Price</span>
+                    <span className="text-base font-bold text-blue-600 block text-center">${product.price}</span>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                    <span className="block text-xs font-medium text-gray-500 mb-1.5">Available</span>
+                    <span className="text-sm font-medium text-gray-700 bg-green-50 px-2.5 py-1.5 rounded-md inline-block w-full text-center">{product.mainQuantity}</span>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
+                    <span className="block text-xs font-medium text-gray-500 mb-1.5">Min Order</span>
+                    <span className="text-sm font-medium text-gray-700 bg-amber-50 px-2.5 py-1.5 rounded-md inline-block w-full text-center">{product.minSellingQuantity}</span>
+                  </div>
+                </div>
+                
+                <div className="mt-3">
+                  <Link to={`/update-product/${product._id}`} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2.5 rounded-md transition-colors duration-200 inline-block text-center text-sm font-medium w-full shadow-sm">
+                    Update
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Desktop table view for medium screens and up */}
+          <table className="hidden md:table w-full table-fixed divide-y divide-gray-200">
             <colgroup>
               <col className="w-1/4" /> {/* Product - wider */}
               <col className="w-1/6" /> {/* Category & Brand */}
