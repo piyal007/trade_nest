@@ -1,13 +1,11 @@
 import React, { useState, forwardRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { signOut } from 'firebase/auth';
-import { auth } from '../Firebase/firebase.config';
 import Swal from 'sweetalert2';
 
 const Navbar = forwardRef((props, ref) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -24,7 +22,7 @@ const Navbar = forwardRef((props, ref) => {
       });
 
       if (result.isConfirmed) {
-        await signOut(auth);
+        await signOut(); // Using the signOut function from AuthContext
         Swal.fire({
           icon: 'success',
           title: 'Success!',

@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../Firebase/firebase.config';
 import Swal from 'sweetalert2';
 import { ClipLoader } from 'react-spinners';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -13,6 +14,7 @@ const Register = () => {
   const [photoURL, setPhotoURL] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { axiosSecure } = useAuth();
 
   const validatePassword = (password) => {
     const hasMinLength = password.length >= 6;

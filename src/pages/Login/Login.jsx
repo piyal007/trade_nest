@@ -5,6 +5,7 @@ import { auth } from '../../Firebase/firebase.config';
 import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc';
 import { ClipLoader } from 'react-spinners';
+import { useAuth } from '../../contexts/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const navigate = useNavigate();
+  const { axiosSecure } = useAuth();
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();

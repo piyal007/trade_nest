@@ -2,7 +2,7 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const ProtectedRoute = ({ children, requiresAuth = true }) => {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
 
   // For routes that require NO authentication (login, register)
   if (!requiresAuth) {
@@ -10,7 +10,8 @@ const ProtectedRoute = ({ children, requiresAuth = true }) => {
   }
 
   // For routes that require authentication
-  return user ? children : <Navigate to="/login" replace />;
+  // Check both user and token
+  return (user && token) ? children : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoute;
