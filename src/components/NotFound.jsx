@@ -1,6 +1,10 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const NotFound = () => {
+  // Set document title for 404 page
+  useDocumentTitle('404 - Page Not Found', false);
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="text-center space-y-6">

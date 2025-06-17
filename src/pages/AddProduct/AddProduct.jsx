@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../contexts/AuthContext';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const AddProduct = () => {
+  // Set document title for Add Product page
+  useDocumentTitle('Add Product');
+  
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const [formData, setFormData] = useState({
@@ -344,7 +348,18 @@ const AddProduct = () => {
         
         {/* Product Content - Static information */}
         <div className="mt-12 p-6 bg-gray-50 rounded-lg border border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">Wholesale Product Guidelines</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">Product Information</h2>
+          <p className="text-gray-700 mb-4">Products listed on TradeNest marketplace are available for wholesale purchase by retailers and business buyers. Our platform specializes in connecting quality suppliers with business customers looking for bulk inventory.</p>
+          
+          <h3 className="text-lg font-semibold text-gray-800 mb-2 mt-4">Benefits of Listing Your Products</h3>
+          <ul className="list-disc pl-5 space-y-2 text-gray-700 mb-4">
+            <li>Reach thousands of verified business buyers</li>
+            <li>Sell in larger quantities with fewer transactions</li>
+            <li>Build long-term business relationships</li>
+            <li>Reduce marketing costs with our built-in promotion tools</li>
+          </ul>
+          
+          <h3 className="text-lg font-semibold text-gray-800 mb-2 mt-4">Wholesale Product Guidelines</h3>
           <ul className="list-disc pl-5 space-y-2 text-gray-700">
             <li>All products must meet quality standards for TradeNest distribution</li>
             <li>Set competitive pricing for bulk purchases to attract retailers</li>

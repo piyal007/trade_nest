@@ -6,8 +6,12 @@ import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc';
 import { ClipLoader } from 'react-spinners';
 import { useAuth } from '../../contexts/AuthContext';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const Login = () => {
+  // Set document title for Login page
+  useDocumentTitle('Login');
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);

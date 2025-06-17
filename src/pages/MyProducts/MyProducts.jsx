@@ -3,8 +3,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Rating } from 'react-simple-star-rating';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const MyProducts = () => {
+  // Set document title for My Products page
+  useDocumentTitle('My Products');
+  
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

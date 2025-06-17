@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const UpdateProduct = () => {
   const { id } = useParams();
@@ -18,6 +19,9 @@ const UpdateProduct = () => {
     price: '',
     rating: ''
   });
+  
+  // Set document title for Update Product page
+  useDocumentTitle(`Update Product`);
 
   const categories = [
     'Electronics & Gadgets',

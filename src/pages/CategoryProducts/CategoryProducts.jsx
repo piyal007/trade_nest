@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const CategoryProducts = () => {
   const { id } = useParams();
@@ -8,6 +9,9 @@ const CategoryProducts = () => {
   const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Set a default title, will be updated when category data is loaded
+  useDocumentTitle(category ? `${category.name} Products` : 'Category Products');
 
   useEffect(() => {
     const fetchCategoryAndProducts = async () => {

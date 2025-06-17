@@ -5,8 +5,12 @@ import { auth } from '../../Firebase/firebase.config';
 import Swal from 'sweetalert2';
 import { ClipLoader } from 'react-spinners';
 import { useAuth } from '../../contexts/AuthContext';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const Register = () => {
+  // Set document title for Register page
+  useDocumentTitle('Register');
+  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const AllProducts = () => {
+  // Set document title for All Products page
+  useDocumentTitle('All Products');
+  
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [showAvailable, setShowAvailable] = useState(false);

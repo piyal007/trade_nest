@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
 import { useAuth } from '../../contexts/AuthContext';
 import Swal from 'sweetalert2';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -12,6 +13,9 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(0);
+  
+  // Set a default title, will be updated when product data is loaded
+  useDocumentTitle(product ? `${product.name}` : 'Product Details');
   
   useEffect(() => {
     const fetchProduct = async () => {

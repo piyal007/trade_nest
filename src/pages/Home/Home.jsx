@@ -4,11 +4,15 @@ import FeaturedCategories from '../../components/FeaturedCategories/FeaturedCate
 import SpecialOffers from '../../components/SpecialOffers/SpecialOffers';
 import Testimonials from '../../components/Testimonials/Testimonials';
 import CallToAction from '../../components/CallToAction/CallToAction';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 // Import custom styles
 import './Home.css';
 
 const Home = () => {
+  // Set document title for Home page
+  useDocumentTitle('Home');
+  
   return (
     <div className='w-full' style={{ paddingTop: 'var(--nav-height)' }}>
       {/* Banner Section */}

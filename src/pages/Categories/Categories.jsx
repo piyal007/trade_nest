@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const Categories = () => {
+  // Set document title for Categories page
+  useDocumentTitle('Product Categories');
+  
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
