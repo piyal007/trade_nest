@@ -4,6 +4,10 @@
 
 TradeNest is a global B2B wholesale marketplace connecting bulk suppliers (manufacturers, distributors) with retailers, resellers, and institutional buyers. This repository contains the frontend React application that powers the TradeNest platform.
 
+### Backend Connection
+
+This client application connects to a Node.js/Express backend server deployed at [https://a11-server-ebon.vercel.app](https://a11-server-ebon.vercel.app). The server repository can be found in the `a11-server` directory.
+
 ## Live URL
 
 [TradeNest B2B Marketplace](https://assignment-11-ec3c7.web.app/)
@@ -125,7 +129,25 @@ npm run dev
 
 # Build for production
 npm run build
+
+# Deploy to Firebase
+npm run build && firebase deploy
 ```
+
+### Deployment
+
+This application is configured for deployment on Firebase Hosting:
+
+1. The project includes the following Firebase configuration files:
+   - `.firebaserc` - Project configuration
+   - `firebase.json` - Hosting configuration
+   - `public/_redirects` - URL rewrite rules for SPA routing
+
+2. To deploy to Firebase:
+   - Install Firebase CLI: `npm install -g firebase-tools`
+   - Login to Firebase: `firebase login`
+   - Build the project: `npm run build`
+   - Deploy to Firebase: `firebase deploy`
 
 ### Environment Variables
 Create a `.env` file in the root directory with the following variables:
@@ -137,4 +159,5 @@ VITE_FIREBASE_PROJECT_ID=your_project_id
 VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
 VITE_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 VITE_FIREBASE_APP_ID=your_app_id
+VITE_API_URL=https://a11-server-ebon.vercel.app  # Backend API URL
 ```
