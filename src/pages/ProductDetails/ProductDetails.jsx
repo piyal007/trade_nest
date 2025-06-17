@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, axiosSecure } = useAuth();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -187,26 +187,16 @@ const ProductDetails = () => {
             throw new Error(`Cannot purchase more than the available quantity (${product.mainQuantity} units)`);
           }
           
-          // Send purchase request to the server
-          const response = await fetch(`http://localhost:3000/products/purchase/${id}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              quantity,
-              address: result.value.address,
-              phone: result.value.phone,
-              userEmail: user.email,
-              userName: user.displayName
-            })
+          // Send purchase request with authorization token
+          const response = await axiosSecure.post(`/products/purchase/${id}`, {
+            quantity,
+            address: result.value.address,
+            phone: result.value.phone,
+            userEmail: user.email,
+            userName: user.displayName
           });
           
-          const data = await response.json();
-          
-          if (!response.ok) {
-            throw new Error(data.error || 'Failed to process purchase');
-          }
+          const data = response.data;
           
           // Update the local product state with the new quantity
           setProduct(prev => ({
@@ -227,7 +217,7 @@ const ProductDetails = () => {
           console.error('Purchase error:', error);
           Swal.fire({
             title: 'Purchase Failed',
-            text: error.message || 'Failed to process your purchase. Please try again.',
+            text: error.response?.data?.message || error.response?.data?.error || error.message || 'Failed to process your purchase. Please try again.',
             icon: 'error'
           });
         }

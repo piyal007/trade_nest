@@ -73,7 +73,7 @@ const Banner = () => {
               <div className="absolute inset-0 flex items-center justify-center z-10">
                 <div className="text-center text-white px-6 sm:px-8 md:px-10 w-full max-w-5xl mx-auto py-8 sm:py-10 md:py-12 transform transition-all duration-700 hover:scale-[1.01]">
                   <div className="animate-fadeIn backdrop-blur-sm backdrop-brightness-75 bg-black/30 p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl">
-                    <span className="inline-block text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] text-blue-300 mb-2 sm:mb-3 font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] animate-[fadeIn_0.8s_ease_0.2s_both]">B2B Wholesale</span>
+                    <span className="inline-block text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] text-blue-300 mb-2 sm:mb-3 font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] animate-[fadeIn_0.8s_ease_0.2s_both]">TradeNest</span>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 md:mb-6 text-white bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)] animate-[fadeIn_0.8s_ease_0.4s_both] animate-float">{slide.title}</h1>
                     <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300 mb-4 sm:mb-5 md:mb-7 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)] tracking-wide animate-[fadeIn_0.8s_ease_0.6s_both]">{slide.subtitle}</h2>
                     <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-10 text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] max-w-3xl mx-auto leading-relaxed animate-[fadeIn_0.8s_ease_0.8s_both]">{slide.description}</p>

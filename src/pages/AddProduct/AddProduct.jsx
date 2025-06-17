@@ -346,7 +346,7 @@ const AddProduct = () => {
         <div className="mt-12 p-6 bg-gray-50 rounded-lg border border-gray-200">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">Wholesale Product Guidelines</h2>
           <ul className="list-disc pl-5 space-y-2 text-gray-700">
-            <li>All products must meet quality standards for B2B wholesale distribution</li>
+            <li>All products must meet quality standards for TradeNest distribution</li>
             <li>Set competitive pricing for bulk purchases to attract retailers</li>
             <li>Ensure accurate inventory counts to prevent stockouts</li>
             <li>Minimum selling quantity should reflect wholesale business model</li>

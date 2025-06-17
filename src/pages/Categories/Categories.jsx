@@ -33,7 +33,7 @@ const Categories = () => {
 
   // Update document title when component mounts
   useEffect(() => {
-    document.title = 'Categories | B2B Wholesale';
+    document.title = 'Categories | TradeNest';
   }, []);
 
   return (

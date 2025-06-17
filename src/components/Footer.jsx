@@ -11,10 +11,10 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center">
-              <span className="text-2xl font-bold text-blue-400">B2B Wholesale</span>
+              <span className="text-2xl font-bold text-blue-400">TradeNest</span>
             </Link>
             <p className="text-gray-400 text-sm">
-              Your trusted global B2B wholesale marketplace connecting suppliers with buyers worldwide.
+              Your trusted global TradeNest marketplace connecting suppliers with buyers worldwide.
               Quality products, secure transactions, and reliable logistics.
             </p>
             <div className="flex space-x-4">
@@ -68,7 +68,7 @@ const Footer = () => {
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
-                contact@b2bwholesale.com
+                contact@tradenest.com
               </p>
               <p className="text-gray-400 flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,7 +84,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © {currentYear} B2B Wholesale. All rights reserved.
+              © {currentYear} TradeNest. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link to="/privacy" className="text-gray-400 hover:text-blue-400 transition-colors text-sm">Privacy Policy</Link>

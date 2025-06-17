@@ -50,7 +50,7 @@ const Navbar = forwardRef((props, ref) => {
           {/* Logo/Website Name */}
           <Link to="/" className="flex items-center">
             <span className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
-              B2B Wholesale
+              TradeNest
             </span>
           </Link>
 
