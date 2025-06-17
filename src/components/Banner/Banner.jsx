@@ -1,6 +1,7 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
+import { motion } from 'framer-motion';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -35,6 +36,84 @@ const Banner = () => {
       description: "Quality home appliances at wholesale rates",
     },
   ];
+
+  // Framer Motion variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8 }
+    },
+  };
+
+  // Text animation variants
+  const titleCharsVariant = {
+    hidden: { opacity: 0, y: 20 },
+    visible: i => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.05,
+        duration: 0.5,
+        ease: [0.2, 0.65, 0.3, 0.9]
+      }
+    })
+  };
+
+  // Entrance animation for the entire banner content
+  const bannerContentVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+        when: "beforeChildren"
+      }
+    }
+  };
+
+  // Button animation
+  const buttonVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "backOut"
+      }
+    },
+    hover: {
+      scale: 1.05,
+      y: -2,
+      boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)",
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    },
+    tap: {
+      scale: 0.95,
+      boxShadow: "0 5px 15px -5px rgba(59, 130, 246, 0.3)",
+      transition: {
+        duration: 0.1
+      }
+    }
+  };
 
   return (
     <div className="banner-section w-full relative">
@@ -71,19 +150,72 @@ const Banner = () => {
               }}
             >
               <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="text-center text-white px-6 sm:px-8 md:px-10 w-full max-w-5xl mx-auto py-8 sm:py-10 md:py-12 transform transition-all duration-700 hover:scale-[1.01]">
-                  <div className="animate-fadeIn backdrop-blur-sm backdrop-brightness-75 bg-black/30 p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl">
-                    <span className="inline-block text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] text-blue-300 mb-2 sm:mb-3 font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] animate-[fadeIn_0.8s_ease_0.2s_both]">TradeNest</span>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 md:mb-6 text-white bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)] animate-[fadeIn_0.8s_ease_0.4s_both] animate-float">{slide.title}</h1>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300 mb-4 sm:mb-5 md:mb-7 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)] tracking-wide animate-[fadeIn_0.8s_ease_0.6s_both]">{slide.subtitle}</h2>
-                    <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-10 text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] max-w-3xl mx-auto leading-relaxed animate-[fadeIn_0.8s_ease_0.8s_both]">{slide.description}</p>
-                    <div className="flex justify-center gap-4 animate-[fadeIn_0.8s_ease_1s_both]">
-                      <button className="cursor-pointer bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold py-3 px-8 sm:py-3 sm:px-10 md:py-4 md:px-12 uppercase tracking-wider text-sm sm:text-base md:text-lg rounded-lg shadow-lg hover:shadow-blue-500/50 transform transition-all duration-300 hover:scale-105 hover:translate-y-[-2px] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 border-2 border-blue-400/30 animate-float">
-                        Shop Now
-                      </button>
+                <motion.div 
+                  className="text-center text-white px-6 sm:px-8 md:px-10 w-full max-w-5xl mx-auto py-8 sm:py-10 md:py-12"
+                  variants={bannerContentVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ duration: 0.7 }}
+                >
+                  <motion.div 
+                    className="backdrop-blur-sm backdrop-brightness-75 bg-black/30 p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl"
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    <motion.span 
+                      className="inline-block text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] text-blue-300 mb-2 sm:mb-3 font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                      variants={itemVariants}
+                    >
+                      TradeNest
+                    </motion.span>
+                    
+                    <div className="overflow-hidden">
+                      <motion.h1 
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 md:mb-6 text-white bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)]"
+                      >
+                        {slide.title.split('').map((char, index) => (
+                          <motion.span
+                            key={index}
+                            custom={index}
+                            variants={titleCharsVariant}
+                            initial="hidden"
+                            animate="visible"
+                            style={{ display: 'inline-block' }}
+                          >
+                            {char === ' ' ? '\u00A0' : char}
+                          </motion.span>
+                        ))}
+                      </motion.h1>
                     </div>
-                  </div>
-                </div>
+                    
+                    <motion.h2 
+                      className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300 mb-4 sm:mb-5 md:mb-7 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)] tracking-wide"
+                      variants={itemVariants}
+                    >
+                      {slide.subtitle}
+                    </motion.h2>
+                    <motion.p 
+                      className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 md:mb-10 text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] max-w-3xl mx-auto leading-relaxed"
+                      variants={itemVariants}
+                    >
+                      {slide.description}
+                    </motion.p>
+                    <motion.div 
+                      className="flex justify-center gap-4"
+                      variants={itemVariants}
+                    >
+                      <motion.button 
+                        className="cursor-pointer bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold py-3 px-8 sm:py-3 sm:px-10 md:py-4 md:px-12 uppercase tracking-wider text-sm sm:text-base md:text-lg rounded-lg shadow-lg border-2 border-blue-400/30 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                        variants={buttonVariants}
+                        whileHover="hover"
+                        whileTap="tap"
+                      >
+                        Shop Now
+                      </motion.button>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
               </div>
             </div>
           </SwiperSlide>

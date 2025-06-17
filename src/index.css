@@ -2,7 +2,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-/* Animation for banner content */
+/* Animation definitions commented out - replaced with framer-motion
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -14,7 +14,6 @@
   }
 }
 
-/* Text reveal animation */
 @keyframes textReveal {
   0% {
     clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
@@ -26,7 +25,6 @@
   }
 }
 
-/* Subtle floating animation for banner elements */
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
@@ -43,6 +41,7 @@
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
+*/
 
 body{
     font-family: "Poppins", sans-serif;
