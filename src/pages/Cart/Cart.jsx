@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Rating } from 'react-simple-star-rating';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import API_URL from '../../config/apiConfig';
 
 const Cart = () => {
   // Set document title for Cart page
@@ -20,7 +21,8 @@ const Cart = () => {
       
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:3000/cart?email=${user.email}`);
+        // Replace the fetch URLs with the centralized API_URL
+        const response = await fetch(`${API_URL}/cart?email=${user.email}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch cart items');
@@ -66,7 +68,7 @@ const Cart = () => {
       });
 
       // Send request to remove from cart and increase product quantity
-      const response = await fetch(`http://localhost:3000/cart/${cartItemId}`, {
+      const response = await fetch(`${API_URL}/cart/${cartItemId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

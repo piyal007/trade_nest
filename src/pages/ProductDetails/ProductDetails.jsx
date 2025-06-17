@@ -4,6 +4,7 @@ import { Rating } from 'react-simple-star-rating';
 import { useAuth } from '../../contexts/AuthContext';
 import Swal from 'sweetalert2';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import API_URL from '../../config/apiConfig';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -21,7 +22,8 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:3000/products/${id}`);
+        // Replace the fetch URL with the centralized API_URL
+        const response = await fetch(`${API_URL}/products/${id}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch product');

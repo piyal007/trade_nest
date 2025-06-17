@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Rating } from 'react-simple-star-rating';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import API_URL from '../../config/apiConfig';
 
 const MyProducts = () => {
   // Set document title for My Products page
@@ -21,7 +22,7 @@ const MyProducts = () => {
       try {
         setLoading(true);
         // Fetch products from the server
-        const response = await fetch(`http://localhost:3000/products?email=${user.email}`);
+        const response = await fetch(`${API_URL}/products?email=${user.email}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch products');
@@ -53,7 +54,7 @@ const MyProducts = () => {
       });
 
       if (result.isConfirmed) {
-        const response = await fetch(`http://localhost:3000/products/${productId}`, {
+        const response = await fetch(`${API_URL}/products/${productId}`, {
           method: 'DELETE',
         });
 

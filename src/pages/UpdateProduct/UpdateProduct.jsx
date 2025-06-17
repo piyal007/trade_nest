@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import API_URL from '../../config/apiConfig';
 
 const UpdateProduct = () => {
   const { id } = useParams();
@@ -37,7 +38,7 @@ const UpdateProduct = () => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`http://localhost:3000/products/${id}`);
+        const response = await fetch(`${API_URL}/products/${id}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch product');
@@ -157,7 +158,7 @@ const UpdateProduct = () => {
       }
 
       // Send update request to the server
-      const response = await fetch(`http://localhost:3000/products/${id}`, {
+      const response = await fetch(`${API_URL}/products/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

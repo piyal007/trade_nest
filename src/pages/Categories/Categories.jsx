@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import API_URL from '../../config/apiConfig';
 
 const Categories = () => {
   // Set document title for Categories page
@@ -15,7 +16,8 @@ const Categories = () => {
     const fetchCategories = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:3000/categories');
+        // Replace the fetch URL with the centralized API_URL
+        const response = await fetch(`${API_URL}/categories`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch categories');

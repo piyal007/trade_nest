@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import API_URL from '../../config/apiConfig';
 
 const CategoryProducts = () => {
   const { id } = useParams();
@@ -19,7 +20,7 @@ const CategoryProducts = () => {
         setLoading(true);
         
         // First, fetch the category details
-        const categoryResponse = await fetch(`http://localhost:3000/categories/${id}`);
+        const categoryResponse = await fetch(`${API_URL}/categories/${id}`);
         
         if (!categoryResponse.ok) {
           throw new Error('Failed to fetch category');
@@ -41,7 +42,7 @@ const CategoryProducts = () => {
         const categorySlug = categoryToSlug(categoryData.name);
         
         // First try with slug
-        let productsResponse = await fetch(`http://localhost:3000/products?category=${encodeURIComponent(categorySlug)}`);
+        let productsResponse = await fetch(`${API_URL}/products?category=${encodeURIComponent(categorySlug)}`);
         
         if (!productsResponse.ok) {
           throw new Error('Failed to fetch products');
@@ -52,7 +53,7 @@ const CategoryProducts = () => {
         // If no products found with exact match, try case-insensitive search on the client side
         if (productsData.length === 0) {
           // Fetch all products
-          const allProductsResponse = await fetch('http://localhost:3000/products');
+          const allProductsResponse = await fetch(`${API_URL}/products`);
           
           if (!allProductsResponse.ok) {
             throw new Error('Failed to fetch products');

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import API_URL from '../../config/apiConfig';
 
 const AllProducts = () => {
   // Set document title for All Products page
@@ -19,7 +20,7 @@ const AllProducts = () => {
       try {
         setLoading(true);
         // Fetch all products from the server
-        const response = await fetch('http://localhost:3000/products');
+        const response = await fetch(`${API_URL}/products`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch products');

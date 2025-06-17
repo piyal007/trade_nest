@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import API_URL from '../../config/apiConfig';
 
 const FeaturedCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -11,7 +12,7 @@ const FeaturedCategories = () => {
     const fetchCategories = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:3000/categories');
+        const response = await fetch(`${API_URL}/categories`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch categories');
