@@ -1,11 +1,13 @@
 import React, { useState, forwardRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 import Swal from 'sweetalert2';
 
 const Navbar = forwardRef((props, ref) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { isDarkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -44,7 +46,7 @@ const Navbar = forwardRef((props, ref) => {
 
   return (
     // Apply the ref to the nav element
-    <nav ref={ref} className="bg-gray-50 fixed w-full top-0 z-50">
+    <nav ref={ref} className="bg-gray-50 dark:bg-gray-900 fixed w-full top-0 z-50 transition-colors duration-300">
       <div className="container mx-auto px-4">
         <div className="flex justify-between h-16 items-center">
           {/* Logo/Website Name */}
@@ -125,6 +127,47 @@ const Navbar = forwardRef((props, ref) => {
 
           {/* Auth Buttons - Desktop */}
           <div className="hidden md:flex items-center space-x-4">
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+              title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDarkMode ? (
+                // Sun icon for dark mode
+                <svg
+                  className="w-5 h-5 transition-transform duration-300 hover:rotate-90"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                  />
+                </svg>
+              ) : (
+                // Moon icon for light mode
+                <svg
+                  className="w-5 h-5 transition-transform duration-300 hover:rotate-12"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                  />
+                </svg>
+              )}
+            </button>
+            
             {user ? (
               <div className="flex items-center space-x-4">
                 <div className="relative group">
@@ -169,7 +212,7 @@ const Navbar = forwardRef((props, ref) => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors"
             >
               <span className="sr-only">Open main menu</span>
               <svg
@@ -203,14 +246,14 @@ const Navbar = forwardRef((props, ref) => {
         </div>
 
         {/* Mobile Menu */}
-        <div className={`${isMenuOpen ? "block" : "hidden"} md:hidden`}>
+        <div className={`${isMenuOpen ? "block" : "hidden"} md:hidden bg-gray-50 dark:bg-gray-900 transition-colors duration-300`}>
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <NavLink
               to="/"
               className={({ isActive }) =>
                 isActive
-                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
-                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-800"
+                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               }
             >
               Home
@@ -219,8 +262,8 @@ const Navbar = forwardRef((props, ref) => {
               to="/categories"
               className={({ isActive }) =>
                 isActive
-                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
-                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-800"
+                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               }
             >
               Categories
@@ -231,8 +274,8 @@ const Navbar = forwardRef((props, ref) => {
                   to="/all-products"
                   className={({ isActive }) =>
                     isActive
-                      ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
-                      : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                      ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-800"
+                      : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   }
                 >
                   All Products
@@ -241,8 +284,8 @@ const Navbar = forwardRef((props, ref) => {
                   to="/add-product"
                   className={({ isActive }) =>
                     isActive
-                      ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
-                      : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                      ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-800"
+                      : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   }
                 >
                   Add Product
@@ -251,8 +294,8 @@ const Navbar = forwardRef((props, ref) => {
                   to="/my-products"
                   className={({ isActive }) =>
                     isActive
-                      ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
-                      : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                      ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-800"
+                      : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                   }
                 >
                   My Products
@@ -263,14 +306,60 @@ const Navbar = forwardRef((props, ref) => {
               to="/cart"
               className={({ isActive }) =>
                 isActive
-                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 bg-gray-50"
-                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-800"
+                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
               }
             >
               Cart
             </NavLink>
             {/* Mobile Auth Buttons */}
-            <div className="pt-4 pb-3 border-t border-gray-200">
+            <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
+              {/* Mobile Theme Toggle */}
+              <div className="px-3 mb-3">
+                <button
+                  onClick={toggleTheme}
+                  className="flex items-center w-full px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300"
+                >
+                  {isDarkMode ? (
+                    <>
+                      <svg
+                        className="w-5 h-5 mr-3 transition-transform duration-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                        />
+                      </svg>
+                      <span className="text-sm font-medium">Light Mode</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-5 h-5 mr-3 transition-transform duration-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                        />
+                      </svg>
+                      <span className="text-sm font-medium">Dark Mode</span>
+                    </>
+                  )}
+                </button>
+              </div>
+              
               {user ? (
                 <div className="flex items-center px-3">
                   <div className="flex-shrink-0">
@@ -281,7 +370,7 @@ const Navbar = forwardRef((props, ref) => {
                     />
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium text-gray-800">
+                    <div className="text-base font-medium text-gray-800 dark:text-gray-200">
                       {user?.displayName || "User"}
                     </div>
                     <button

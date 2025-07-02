@@ -138,7 +138,7 @@ const Banner = () => {
         }}
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
         className="mySwiper overflow-hidden shadow-[0_5px_30px_rgba(0,0,0,0.3)] w-full" 
-        style={{ height: `calc(100vh - var(--nav-height))` }}
+        style={{ height: `calc(90vh - var(--nav-height))` }}
       >
         {bannerSlides.map(slide => (
           <SwiperSlide key={slide.id}>

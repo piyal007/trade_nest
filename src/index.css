@@ -46,3 +46,20 @@
 body{
     font-family: "Poppins", sans-serif;
 }
+
+/* Dark mode styles */
+.dark {
+    color-scheme: dark;
+}
+
+.dark body {
+    background-color: #111827;
+    color: #f9fafb;
+}
+
+/* Smooth transitions for theme switching */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
