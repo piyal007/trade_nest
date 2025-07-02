@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Outlet } from "react-router";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import BackToTop from "../../components/BackToTop";
 
 const MainLayout = () => {
   const navbarRef = useRef(null);
@@ -37,6 +38,7 @@ const MainLayout = () => {
       <main className="flex-grow">
         <Outlet />
       </main>
+      <BackToTop />
       <Footer />
     </div>
   );
