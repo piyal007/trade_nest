@@ -69,11 +69,7 @@ const router = createBrowserRouter([
       },
       {        
         path: "all-products",        
-        element: (          
-          <ProtectedRoute>            
-            <AllProducts />          
-          </ProtectedRoute>        
-        ),      
+        element: <AllProducts />      
       },
       {        
         path: "category/:id",        
@@ -85,10 +81,10 @@ const router = createBrowserRouter([
       },
       {        
         path: "cart",        
-        element: (          
-          <ProtectedRoute>            
-            <Cart />          
-          </ProtectedRoute>        
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
         ),      
       }
     ],

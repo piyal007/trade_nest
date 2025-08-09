@@ -48,7 +48,7 @@ const Navbar = forwardRef((props, ref) => {
     // Apply the ref to the nav element
     <nav ref={ref} className="bg-gray-50 dark:bg-gray-900 fixed w-full top-0 z-50 transition-colors duration-300">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between h-16 items-center">
+        <div className="grid grid-cols-3 h-16 items-center">
           {/* Logo/Website Name */}
           <Link to="/" className="flex items-center">
             <span className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
@@ -57,7 +57,7 @@ const Navbar = forwardRef((props, ref) => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 justify-center">
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -78,10 +78,7 @@ const Navbar = forwardRef((props, ref) => {
             >
               Categories
             </NavLink>
-            {/* Protected Routes - Only visible when logged in */}
-            {user && (
-              <>
-                <NavLink
+            <NavLink
                   to="/all-products"
                   className={({ isActive }) =>
                     isActive
@@ -90,7 +87,11 @@ const Navbar = forwardRef((props, ref) => {
                   }
                 >
                   All Products
-                </NavLink>
+              </NavLink>
+            {/* Protected Routes - Only visible when logged in */}
+            {user && (
+              <>
+                
                 <NavLink
                   to="/add-product"
                   className={({ isActive }) =>
@@ -111,22 +112,22 @@ const Navbar = forwardRef((props, ref) => {
                 >
                   My Products
                 </NavLink>
+                <NavLink
+                  to="/cart"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-blue-600 font-medium text-sm"
+                      : "text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
+                  }
+                >
+                  Cart
+                </NavLink>
               </>
             )}
-            <NavLink
-              to="/cart"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-blue-600 font-medium text-sm"
-                  : "text-gray-600 hover:text-blue-600 transition-colors text-sm font-medium"
-              }
-            >
-              Cart
-            </NavLink>
           </div>
 
           {/* Auth Buttons - Desktop */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4 justify-self-end">
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
@@ -268,9 +269,7 @@ const Navbar = forwardRef((props, ref) => {
             >
               Categories
             </NavLink>
-            {user && (
-              <>
-                <NavLink
+            <NavLink
                   to="/all-products"
                   className={({ isActive }) =>
                     isActive
@@ -280,6 +279,9 @@ const Navbar = forwardRef((props, ref) => {
                 >
                   All Products
                 </NavLink>
+            {user && (
+              <>
+                
                 <NavLink
                   to="/add-product"
                   className={({ isActive }) =>
@@ -300,18 +302,18 @@ const Navbar = forwardRef((props, ref) => {
                 >
                   My Products
                 </NavLink>
+                <NavLink
+                  to="/cart"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-800"
+                      : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  }
+                >
+                  Cart
+                </NavLink>
               </>
             )}
-            <NavLink
-              to="/cart"
-              className={({ isActive }) =>
-                isActive
-                  ? "block px-3 py-2 rounded-md text-base font-medium text-blue-600 dark:text-blue-400 bg-gray-50 dark:bg-gray-800"
-                  : "block px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-              }
-            >
-              Cart
-            </NavLink>
             {/* Mobile Auth Buttons */}
             <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
               {/* Mobile Theme Toggle */}
