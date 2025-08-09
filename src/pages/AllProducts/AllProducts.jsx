@@ -300,7 +300,7 @@ const AllProducts = () => {
                 </div>
                 
                 <div className="mt-auto">
-                  <Link 
+                  {/* <Link 
                     to={`/update-product/${product._id}`} 
                     className="w-full px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:from-amber-600 hover:to-amber-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center mb-2"
                   >
@@ -308,7 +308,7 @@ const AllProducts = () => {
                       <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                     </svg>
                     Update
-                  </Link>
+                  </Link> */}
                   <Link
                     to={`/product/${product._id}`}
                     className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
@@ -393,9 +393,9 @@ const AllProducts = () => {
                 </div>
                 
                 <div className="mt-3">
-                  <Link to={`/update-product/${product._id}`} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2.5 rounded-md transition-colors duration-200 inline-block text-center text-sm font-medium w-full shadow-sm">
+                  {/* <Link to={`/update-product/${product._id}`} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2.5 rounded-md transition-colors duration-200 inline-block text-center text-sm font-medium w-full shadow-sm">
                     Update
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             ))}
@@ -478,9 +478,9 @@ const AllProducts = () => {
                     <span className="text-sm font-medium text-gray-700 bg-amber-50 px-3 py-1.5 rounded-md inline-block text-center">{product.minSellingQuantity}</span>
                   </td>
                   <td className="px-3 py-5 border-b border-gray-100 text-sm font-medium">
-                    <Link to={`/update-product/${product._id}`} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-md transition-colors duration-200 inline-block text-center text-xs font-medium">
+                    {/* <Link to={`/update-product/${product._id}`} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-md transition-colors duration-200 inline-block text-center text-xs font-medium">
                       Update
-                    </Link>
+                    </Link> */}
                   </td>
                 </tr>
               ))}
