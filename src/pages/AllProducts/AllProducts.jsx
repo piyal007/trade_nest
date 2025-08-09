@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
@@ -14,6 +14,7 @@ const AllProducts = () => {
   const [viewMode, setViewMode] = useState('card'); // 'card' or 'table'
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sortBy, setSortBy] = useState('none'); // none | priceAsc | priceDesc
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -51,6 +52,19 @@ const AllProducts = () => {
       setFilteredProducts(products);
     }
   }, [showAvailable, products]);
+
+  // Compute a sorted list based on current sort selection
+  const sortedProducts = useMemo(() => {
+    const copy = [...filteredProducts];
+    switch (sortBy) {
+      case 'priceAsc':
+        return copy.sort((a, b) => (a.price ?? 0) - (b.price ?? 0));
+      case 'priceDesc':
+        return copy.sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+      default:
+        return copy;
+    }
+  }, [filteredProducts, sortBy]);
 
   if (loading) {
     return (
@@ -190,13 +204,28 @@ const AllProducts = () => {
             </svg>
             {showAvailable ? 'Show All Products' : 'Show Available Products'}
           </button>
+
+          {/* Sort Select */}
+          <div>
+            <label htmlFor="sortSelect" className="sr-only">Sort products</label>
+            <select
+              id="sortSelect"
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="px-4 py-2 rounded-lg font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none"
+            >
+              <option value="none">Sort: Default</option>
+              <option value="priceAsc">Price: Low to High</option>
+              <option value="priceDesc">Price: High to Low</option>
+            </select>
+          </div>
         </div>
       </div>
 
             {/* Product Display - Card or Table View */}
       {viewMode === 'card' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProducts.map((product) => (
+          {sortedProducts.map((product) => (
             <div key={product._id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
               <div className="relative group h-48">
                 <div className="h-full w-full overflow-hidden">
@@ -299,7 +328,7 @@ const AllProducts = () => {
         <div className="overflow-x-auto bg-white rounded-xl shadow-lg border border-gray-100">
           {/* Mobile card view for small screens */}
           <div className="block md:hidden">
-            {filteredProducts.map((product, index) => (
+            {sortedProducts.map((product, index) => (
               <div key={product._id} className={`p-4 border-b ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} transition-all duration-200 hover:bg-blue-50`}>
                 <div className="flex items-start mb-4">
                   <div className="flex-shrink-0 h-20 w-20 mr-4">
@@ -395,7 +424,7 @@ const AllProducts = () => {
               </tr>
             </thead>
             <tbody className="bg-white">
-              {filteredProducts.map((product, index) => (
+              {sortedProducts.map((product, index) => (
                 <tr key={product._id} className={`hover:bg-blue-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                   <td className="px-4 py-5 border-b border-gray-100">
                     <div className="flex items-center">
