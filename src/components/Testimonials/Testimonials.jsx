@@ -196,16 +196,7 @@ const Testimonials = () => {
           ))}
         </motion.div>
         
-        <motion.div 
-          className="text-center mt-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-        >
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-md">
-            Join Our Satisfied Customers
-          </button>
-        </motion.div>
+        
       </div>
     </section>
   );

@@ -1,8 +1,18 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { FaTag, FaPercent, FaShoppingCart } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const SpecialOffers = () => {
+  const handleClaim = (offer) => {
+    Swal.fire({
+      icon: 'success',
+      title: 'Offer claimed successfully!',
+      text: `${offer.title} — Use code: ${offer.code}`,
+      confirmButtonColor: '#3B82F6'
+    });
+  };
   const offers = [
     {
       title: 'Bulk Purchase Discount',
@@ -185,7 +195,7 @@ const SpecialOffers = () => {
                     {offer.discount}
                   </motion.span>
                 </div>
-                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 rotate-45 bg-gradient-to-br ${offer.color}"></div>
+                <div className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 rotate-45 bg-gradient-to-br ${offer.color}`}></div>
               </motion.div>
               
               <div className="p-8 flex flex-col flex-grow">
@@ -210,6 +220,7 @@ const SpecialOffers = () => {
                   variants={buttonVariants}
                   whileHover="hover"
                   whileTap="tap"
+                  onClick={() => handleClaim(offer)}
                 >
                   <span className="font-semibold">Claim Offer</span>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
@@ -219,21 +230,6 @@ const SpecialOffers = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
-        
-        <motion.div 
-          className="text-center mt-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-        >
-          <p className="text-gray-500 mb-6">*Terms and conditions apply. Offers valid for a limited time only.</p>
-          <a href="#" className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center transition-colors duration-200">
-            View all offers
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-          </a>
         </motion.div>
       </div>
     </section>
