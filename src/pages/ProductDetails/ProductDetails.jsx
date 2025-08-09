@@ -327,8 +327,8 @@ const ProductDetails = () => {
                 <p className="text-gray-600 leading-relaxed">{product.description}</p>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
                   <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Price</span>
                   <div className="flex items-baseline">
                     <span className="font-bold text-2xl text-gray-800">${product.price}</span>
@@ -336,15 +336,15 @@ const ProductDetails = () => {
                   </div>
                 </div>
                 
-                <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-xl border border-green-100">
-                  <span className="block text-green-600 text-xs font-semibold uppercase tracking-wide mb-1">Available</span>
+                <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                  <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Available</span>
                   <div className="flex items-baseline">
                     <span className="font-bold text-2xl text-gray-800">{product.mainQuantity}</span>
                     <span className="text-xs ml-1 text-gray-500">units</span>
                   </div>
                 </div>
                 
-                <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-4 rounded-xl border border-amber-100">
+                <div className="bg-amber-50 p-4 rounded-xl border border-amber-100">
                   <span className="block text-amber-600 text-xs font-semibold uppercase tracking-wide mb-1">Min. Order</span>
                   <div className="flex items-baseline">
                     <span className="font-bold text-2xl text-gray-800">{product.minSellingQuantity}</span>
@@ -398,7 +398,7 @@ const ProductDetails = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <button 
                   onClick={handleBuy}
-                  className="cursor-pointer px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 text-base font-medium shadow-md flex-1 flex items-center justify-center"
+                  className="cursor-pointer px-8 py-3 bg-[var(--color-primary)] text-white rounded-lg hover:bg-blue-700 transition-all duration-300 text-base font-medium shadow-md flex-1 flex items-center justify-center"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />

@@ -20,7 +20,7 @@ const SpecialOffers = () => {
       code: 'BULK25',
       description: 'Save big when you order in bulk quantities. Perfect for restocking your inventory.',
       icon: <FaShoppingCart />,
-      color: 'from-blue-600 to-indigo-700'
+      bgClass: 'bg-[var(--color-primary)]'
     },
     {
       title: 'New Customer Special',
@@ -28,7 +28,7 @@ const SpecialOffers = () => {
       code: 'NEWB2B',
       description: 'First-time customers get an exclusive discount on their initial order.',
       icon: <FaTag />,
-      color: 'from-purple-600 to-indigo-700'
+      bgClass: 'bg-[var(--color-accent)]'
     },
     {
       title: 'Seasonal Clearance',
@@ -36,7 +36,7 @@ const SpecialOffers = () => {
       code: 'SEASON40',
       description: 'Limited time offer on seasonal products. Stock up before they\'re gone!',
       icon: <FaPercent />,
-      color: 'from-teal-600 to-blue-700'
+      bgClass: 'bg-[var(--color-primary)]'
     }
   ];
 
@@ -132,14 +132,14 @@ const SpecialOffers = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
+    <section className="py-16 md:py-24 lg:py-32 bg-gray-50 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-blue-200 opacity-10"></div>
-        <div className="absolute top-1/4 -right-20 w-96 h-96 rounded-full bg-indigo-200 opacity-10"></div>
+        <div className="absolute top-1/4 -right-20 w-96 h-96 rounded-full bg-blue-100 opacity-10"></div>
         <div className="absolute bottom-10 left-1/3 w-48 h-48 rounded-full bg-blue-300 opacity-10"></div>
-        <div className="absolute top-3/4 left-1/4 w-32 h-32 rounded-full bg-teal-200 opacity-10"></div>
-        <div className="absolute -bottom-16 right-1/4 w-56 h-56 rounded-full bg-purple-200 opacity-10"></div>
+        <div className="absolute top-3/4 left-1/4 w-32 h-32 rounded-full bg-blue-100 opacity-10"></div>
+        <div className="absolute -bottom-16 right-1/4 w-56 h-56 rounded-full bg-blue-200 opacity-10"></div>
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -170,7 +170,7 @@ const SpecialOffers = () => {
               whileHover="hover"
             >
               <motion.div 
-                className={`bg-gradient-to-r ${offer.color} text-white py-6 px-6 text-center relative`}
+                className={`${offer.bgClass} text-white py-6 px-6 text-center relative`}
                 variants={discountVariants}
                 initial="initial"
                 whileHover="hover"
@@ -195,7 +195,7 @@ const SpecialOffers = () => {
                     {offer.discount}
                   </motion.span>
                 </div>
-                <div className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 rotate-45 bg-gradient-to-br ${offer.color}`}></div>
+                <div className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 rotate-45 ${offer.bgClass}`}></div>
               </motion.div>
               
               <div className="p-8 flex flex-col flex-grow">
@@ -216,7 +216,7 @@ const SpecialOffers = () => {
                 </div>
                 
                 <motion.button 
-                  className={`w-full py-4 bg-gradient-to-r ${offer.color} text-white rounded-xl font-medium shadow-md flex items-center justify-center`}
+                  className={`w-full py-4 ${offer.bgClass} text-white rounded-xl font-medium shadow-md flex items-center justify-center`}
                   variants={buttonVariants}
                   whileHover="hover"
                   whileTap="tap"

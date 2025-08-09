@@ -123,7 +123,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 bg-gradient-to-b from-white to-blue-50 relative overflow-hidden">
+    <section className="py-16 md:py-24 lg:py-32 bg-blue-50 relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-100 rounded-full opacity-20"></div>

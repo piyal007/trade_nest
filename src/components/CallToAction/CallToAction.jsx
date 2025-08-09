@@ -32,7 +32,7 @@ const CallToAction = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-900 relative">
+    <section className="py-16 md:py-24 bg-gray-50 dark:bg-gray-900 relative">
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-12"

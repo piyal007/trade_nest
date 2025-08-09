@@ -128,9 +128,9 @@ const MyProducts = () => {
           </div>
           <h2 className="text-3xl font-bold text-gray-800 mb-4">Your Product Shelf is Empty</h2>
           <p className="text-gray-600 mb-8 text-lg">Start building your inventory by adding your first product</p>
-          <Link 
+            <Link 
             to="/add-product" 
-            className="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300"
+            className="inline-flex items-center bg-[var(--color-primary)] text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
@@ -156,7 +156,7 @@ const MyProducts = () => {
         </div>
         <Link 
           to="/add-product" 
-          className="bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 flex items-center"
+          className="bg-[var(--color-primary)] text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-blue-700 transition-all duration-300 flex items-center"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
             <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
@@ -186,7 +186,7 @@ const MyProducts = () => {
               <div>
                 <div className="flex flex-col md:flex-row justify-between items-start mb-3 gap-2">
                   <h2 className="text-2xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300">{product.name}</h2>
-                  <div className="flex items-center bg-gradient-to-r from-amber-50 to-yellow-50 px-4 py-2 rounded-lg shadow-sm border border-amber-100 self-start">
+                  <div className="flex items-center bg-amber-50 px-4 py-2 rounded-lg shadow-sm border border-amber-100 self-start">
                     <Rating
                       initialValue={product.rating}
                       readonly={true}
@@ -218,7 +218,7 @@ const MyProducts = () => {
                 <p className="text-gray-600 mb-6 leading-relaxed">{product.description}</p>
                 
                 <div className="flex flex-wrap gap-4 mb-6">
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100">
+                  <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
                     <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Price</span>
                     <div className="flex items-baseline">
                       <span className="font-bold text-2xl text-gray-800">${product.price}</span>
@@ -226,15 +226,15 @@ const MyProducts = () => {
                     </div>
                   </div>
                   
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-xl border border-green-100">
-                    <span className="block text-green-600 text-xs font-semibold uppercase tracking-wide mb-1">Available</span>
+                  <div className="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                    <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Available</span>
                     <div className="flex items-baseline">
                       <span className="font-bold text-xl text-gray-800">{product.mainQuantity}</span>
                       <span className="text-xs ml-1 text-gray-500">units</span>
                     </div>
                   </div>
                   
-                  <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-4 rounded-xl border border-amber-100">
+                  <div className="bg-amber-50 p-4 rounded-xl border border-amber-100">
                     <span className="block text-amber-600 text-xs font-semibold uppercase tracking-wide mb-1">Min. Order</span>
                     <div className="flex items-baseline">
                       <span className="font-bold text-xl text-gray-800">{product.minSellingQuantity}</span>
@@ -247,7 +247,7 @@ const MyProducts = () => {
               <div className="flex gap-4 mt-auto">
                 <Link 
                   to={`/update-product/${product._id}`} 
-                  className="px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white rounded-lg hover:from-amber-600 hover:to-amber-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
+                  className="px-6 py-3 bg-[var(--color-accent)] text-white rounded-lg hover:bg-amber-600 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
@@ -256,7 +256,7 @@ const MyProducts = () => {
                 </Link>
                 <button 
                   onClick={() => handleDelete(product._id)} 
-                  className="cursor-pointer px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-300 text-sm font-medium shadow-md flex items-center justify-center"
+                  className="cursor-pointer px-6 py-3 bg-[var(--color-danger)] text-white rounded-lg hover:bg-red-700 transition-all duration-300 text-sm font-medium shadow-md flex items-center justify-center"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />

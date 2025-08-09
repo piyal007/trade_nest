@@ -103,7 +103,7 @@ const CategoryProducts = () => {
         <>
           {category && (
             <div className="mb-8">
-              <div className="flex flex-col md:flex-row items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100 shadow-sm">
+              <div className="flex flex-col md:flex-row items-center justify-between bg-blue-50 rounded-xl p-6 border border-blue-100 shadow-sm">
                 <div className="flex items-center mb-4 md:mb-0">
                   {category.image && (
                     <img 
@@ -157,7 +157,7 @@ const CategoryProducts = () => {
                     <div>
                       <div className="flex flex-col justify-between items-start mb-3 gap-2">
                         <h2 className="text-xl font-bold text-gray-800 hover:text-blue-600 transition-colors duration-300 line-clamp-1">{product.name}</h2>
-                        <div className="flex items-center bg-gradient-to-r from-amber-50 to-yellow-50 px-3 py-1 rounded-lg shadow-sm border border-amber-100 self-start">
+                        <div className="flex items-center bg-amber-50 px-3 py-1 rounded-lg shadow-sm border border-amber-100 self-start">
                           <Rating
                             initialValue={product.rating}
                             readonly={true}
@@ -189,21 +189,21 @@ const CategoryProducts = () => {
                       <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">{product.description}</p>
                       
                       <div className="grid grid-cols-3 gap-2 mb-4">
-                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-2 rounded-lg border border-blue-100">
+                        <div className="bg-blue-50 p-2 rounded-lg border border-blue-100">
                           <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Price</span>
                           <div className="flex items-baseline">
                             <span className="font-bold text-lg text-gray-800">${product.price}</span>
                           </div>
                         </div>
                         
-                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 p-2 rounded-lg border border-green-100">
-                          <span className="block text-green-600 text-xs font-semibold uppercase tracking-wide mb-1">Qty</span>
+                        <div className="bg-blue-50 p-2 rounded-lg border border-blue-100">
+                          <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Qty</span>
                           <div className="flex items-baseline">
                             <span className="font-bold text-lg text-gray-800">{product.mainQuantity}</span>
                           </div>
                         </div>
                         
-                        <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-2 rounded-lg border border-amber-100">
+                        <div className="bg-amber-50 p-2 rounded-lg border border-amber-100">
                           <span className="block text-amber-600 text-xs font-semibold uppercase tracking-wide mb-1">Min</span>
                           <div className="flex items-baseline">
                             <span className="font-bold text-lg text-gray-800">{product.minSellingQuantity}</span>
@@ -215,7 +215,7 @@ const CategoryProducts = () => {
                     <div className="mt-auto">
                       <Link 
                         to={`/product/${product._id}`} 
-                        className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
+                        className="w-full px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M10 2a.75.75 0 01.75.75v12.59l1.95-2.1a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 111.1-1.02l1.95 2.1V2.75A.75.75 0 0110 2z" clipRule="evenodd" />

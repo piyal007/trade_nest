@@ -106,7 +106,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 py-20 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-blue-50 py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-2xl">
         <div className="text-center">
           <h2 className="text-4xl font-extrabold text-gray-900 mb-2">Create Account</h2>
@@ -164,7 +164,7 @@ const Register = () => {
                       <p key={index} className="text-xs text-red-500">{error}</p>
                     ))
                   ) : (
-                    <p className="text-xs text-green-500">Password meets all requirements ✓</p>
+                    <p className="text-xs text-amber-500">Password meets all requirements ✓</p>
                   )
                 )}
               </div>

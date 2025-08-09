@@ -2,46 +2,22 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-/* Animation definitions commented out - replaced with framer-motion
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Design tokens: 4-color palette and surfaces */
+:root {
+  /* Primary (blue) */
+  --color-primary: #2563eb; /* blue-600 */
+  /* Accent (amber) */
+  --color-accent: #f59e0b;  /* amber-500 */
+  /* Danger (red) */
+  --color-danger: #dc2626;  /* red-600 */
+  /* Neutral text baseline */
+  --color-neutral-text: #111827; /* gray-900 */
+
+  /* Surfaces */
+  --surface-bg: #ffffff;
+  --surface-border: #e5e7eb; /* gray-200 */
 }
 
-@keyframes textReveal {
-  0% {
-    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-    opacity: 0;
-  }
-  100% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    opacity: 1;
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-.animate-fadeIn {
-  animation: fadeIn 1s ease-in-out;
-}
-
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-*/
 
 body{
     font-family: "Poppins", sans-serif;
@@ -53,8 +29,12 @@ body{
 }
 
 .dark body {
-    background-color: #111827;
-    color: #f9fafb;
+    /* Dark surfaces */
+    --surface-bg: #0b1220;
+    --surface-border: #1f2937; /* gray-800 */
+
+    background-color: #111827; /* page bg */
+    color: #f9fafb; /* base text */
 }
 
 /* Keep component surfaces (cards, content) using their own light styles.
@@ -66,3 +46,13 @@ body{
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
 }
+
+/* Helper utilities leveraging tokens (optional, complements Tailwind) */
+.bg-surface { background-color: var(--surface-bg); }
+.border-surface { border-color: var(--surface-border); }
+.bg-primary { background-color: var(--color-primary); }
+.text-primary { color: var(--color-primary); }
+.bg-accent { background-color: var(--color-accent); }
+.text-accent { color: var(--color-accent); }
+.bg-danger { background-color: var(--color-danger); }
+.text-danger { color: var(--color-danger); }

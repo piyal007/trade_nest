@@ -102,7 +102,7 @@ const FeaturedCategories = () => {
   };
 
   return (
-    <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+    <section className="py-16 md:py-20 lg:py-24 bg-gray-50 relative overflow-hidden">
       {/* Decorative elements */}
       <motion.div 
         className="absolute top-0 right-0 w-72 h-72 rounded-full bg-blue-500 opacity-10 -mr-20 -mt-20"
@@ -111,7 +111,7 @@ const FeaturedCategories = () => {
         animate="animate"
       />
       <motion.div 
-        className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-indigo-500 opacity-10 -ml-20 -mb-20"
+        className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-blue-400 opacity-10 -ml-20 -mb-20"
         variants={decorativeCircleVariants}
         initial="initial"
         animate="animate"

@@ -1,21 +1,13 @@
 Assignment 11 - Requirements Mismatch Report
 
 NOT DONE
-- 16. No “Unclickable” button/route/link should be present.
-  Reason: Footer contains placeholder social links (href="#") and links to unimplemented routes (/privacy, /terms, /shipping) that lead to 404.
-
-- 18. Maximum 4 colors in the entire project (3 preferred).
-  Reason: More than four distinct colors are used across components (e.g., blue, indigo, purple, teal, amber, green, red).
-
-- 19. All cards should have the same border radius and be of the same size.
+ - 19. All cards should have the same border radius and be of the same size.
   Reason: Mixed radii used across components (e.g., rounded-lg, rounded-xl, rounded-2xl).
 
 - 20. A maximum of two button types (outline and filled) used uniformly.
   Reason: Multiple button styles exist (gradients, solid fills, outlines, varied shapes).
 
 PARTIALLY DONE
-- 7. Home page cards: same size; each card needs title, image, short description, “See more” button.
-  Reason: Cards in Home sections are generally uniform, but several lack per-card short descriptions and explicit “See more” buttons (cards are clickable instead).
 
 - 14. Handle system dark/light mode; no visibility issues.
   Reason: Dark mode and toggle work; system preference is applied only when no saved theme exists. Initial theme doesn’t auto-follow system preference if a prior choice is stored.

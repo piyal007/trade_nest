@@ -172,7 +172,7 @@ const Banner = () => {
                     
                     <div className="overflow-hidden">
                       <motion.h1 
-                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 md:mb-6 text-white bg-clip-text bg-gradient-to-r from-white via-blue-100 to-blue-300 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)]"
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4 md:mb-6 text-white drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)]"
                       >
                         {slide.title.split('').map((char, index) => (
                           <motion.span
@@ -190,7 +190,7 @@ const Banner = () => {
                     </div>
                     
                     <motion.h2 
-                      className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-300 mb-4 sm:mb-5 md:mb-7 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)] tracking-wide"
+                      className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-amber-300 mb-4 sm:mb-5 md:mb-7 drop-shadow-[0_3px_5px_rgba(0,0,0,0.9)] tracking-wide"
                       variants={itemVariants}
                     >
                       {slide.subtitle}
@@ -206,7 +206,7 @@ const Banner = () => {
                       variants={itemVariants}
                     >
                       <motion.button 
-                        className="cursor-pointer bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold py-3 px-8 sm:py-3 sm:px-10 md:py-4 md:px-12 uppercase tracking-wider text-sm sm:text-base md:text-lg rounded-lg shadow-lg border-2 border-blue-400/30 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                        className="cursor-pointer bg-[var(--color-primary)] text-white font-bold py-3 px-8 sm:py-3 sm:px-10 md:py-4 md:px-12 uppercase tracking-wider text-sm sm:text-base md:text-lg rounded-lg shadow-lg border-2 border-blue-400/30 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                         variants={buttonVariants}
                         whileHover="hover"
                         whileTap="tap"
