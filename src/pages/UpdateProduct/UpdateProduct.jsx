@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
-import API_URL from '../../config/apiConfig';
+import { useAuth } from '../../contexts/AuthContext';
 
 const UpdateProduct = () => {
+  const { axiosSecure } = useAuth();
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -38,7 +39,7 @@ const UpdateProduct = () => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${API_URL}/products/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/products/${id}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch product');
@@ -107,7 +108,7 @@ const UpdateProduct = () => {
       // Basic URL validation
       try {
         new URL(formData.image);
-      } catch (error) {
+      } catch {
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -157,18 +158,8 @@ const UpdateProduct = () => {
         return;
       }
 
-      // Send update request to the server
-      const response = await fetch(`${API_URL}/products/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to all-products product');
-      }
+      // Send update request to the server with auth token
+      await axiosSecure.put(`/products/${id}`, formData);
 
       Swal.fire({
         icon: 'success',

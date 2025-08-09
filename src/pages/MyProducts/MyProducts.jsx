@@ -13,7 +13,7 @@ const MyProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user } = useAuth();
+  const { user, axiosSecure } = useAuth();
 
   useEffect(() => {
     const fetchUserProducts = async () => {
@@ -54,13 +54,7 @@ const MyProducts = () => {
       });
 
       if (result.isConfirmed) {
-        const response = await fetch(`${API_URL}/products/${productId}`, {
-          method: 'DELETE',
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to delete product');
-        }
+        await axiosSecure.delete(`/products/${productId}`);
 
         // Remove the deleted product from the state
         setProducts(products.filter(product => product._id !== productId));
