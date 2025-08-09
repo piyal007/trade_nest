@@ -2,14 +2,13 @@ import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../contexts/AuthContext';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
-import API_URL from '../../config/apiConfig';
 
 const AddProduct = () => {
   // Set document title for Add Product page
   useDocumentTitle('Add Product');
   
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
+  const { user, axiosSecure } = useAuth();
   const [formData, setFormData] = useState({
     image: '',
     name: '',
@@ -76,7 +75,7 @@ const AddProduct = () => {
       // Basic URL validation
       try {
         new URL(formData.image);
-      } catch (error) {
+      } catch {
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -139,18 +138,8 @@ const AddProduct = () => {
         categorySlug: categoryToSlug(formData.category)
       };
 
-      // Send data to the backend
-      const response = await fetch(`${API_URL}/products`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(productData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to add product');
-      }
+      // Send data to the backend with auth token
+      await axiosSecure.post('/products', productData);
 
       Swal.fire({
         icon: 'success',
