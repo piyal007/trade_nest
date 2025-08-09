@@ -57,6 +57,9 @@ body{
     color: #f9fafb;
 }
 
+/* Keep component surfaces (cards, content) using their own light styles.
+   Only the page background switches to dark above. */
+
 /* Smooth transitions for theme switching */
 * {
     transition-property: background-color, border-color, color, fill, stroke;

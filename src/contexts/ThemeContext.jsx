@@ -12,13 +12,9 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check localStorage first, then system preference
+    // Prefer persisted user choice; otherwise default to light mode
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme === 'dark';
-    }
-    // Check system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return savedTheme ? savedTheme === 'dark' : false;
   });
 
   const toggleTheme = () => {
@@ -49,7 +45,7 @@ export const ThemeProvider = ({ children }) => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
     const handleChange = (e) => {
-      // Only update if user hasn't manually set a preference
+      // Only update if user hasn't manually set a preference; otherwise respect localStorage
       if (!localStorage.getItem('theme')) {
         setIsDarkMode(e.matches);
       }
