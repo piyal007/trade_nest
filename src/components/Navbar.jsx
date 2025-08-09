@@ -48,7 +48,7 @@ const Navbar = forwardRef((props, ref) => {
     // Apply the ref to the nav element
     <nav ref={ref} className="bg-gray-50 dark:bg-gray-900 fixed w-full top-0 z-50 transition-colors duration-300">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-3 h-16 items-center">
+        <div className="relative flex justify-between h-16 items-center">
           {/* Logo/Website Name */}
           <Link to="/" className="flex items-center">
             <span className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
@@ -56,8 +56,8 @@ const Navbar = forwardRef((props, ref) => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8 justify-center">
+          {/* Desktop Navigation (centered independently) */}
+          <div className="hidden md:flex items-center gap-6 whitespace-nowrap absolute left-1/2 -translate-x-1/2">
             <NavLink
               to="/"
               className={({ isActive }) =>
