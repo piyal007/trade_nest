@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import API_URL from '../../config/apiConfig';
 
-const FeaturedCategories = () => {
+const FeaturedCategories = ({ showDecorations = true }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -104,18 +104,22 @@ const FeaturedCategories = () => {
   return (
     <section className="py-16 md:py-20 lg:py-24 bg-gray-50 relative overflow-hidden">
       {/* Decorative elements */}
-      <motion.div 
-        className="absolute top-0 right-0 w-72 h-72 rounded-full bg-blue-500 opacity-10 -mr-20 -mt-20"
-        variants={decorativeCircleVariants}
-        initial="initial"
-        animate="animate"
-      />
-      <motion.div 
-        className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-blue-400 opacity-10 -ml-20 -mb-20"
-        variants={decorativeCircleVariants}
-        initial="initial"
-        animate="animate"
-      />
+      {showDecorations && (
+        <>
+          <motion.div
+            className="absolute top-0 right-0 w-72 h-72 rounded-full bg-blue-500 opacity-10 -mr-20 -mt-20"
+            variants={decorativeCircleVariants}
+            initial="initial"
+            animate="animate"
+          />
+          <motion.div
+            className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-blue-400 opacity-10 -ml-20 -mb-20"
+            variants={decorativeCircleVariants}
+            initial="initial"
+            animate="animate"
+          />
+        </>
+      )}
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 

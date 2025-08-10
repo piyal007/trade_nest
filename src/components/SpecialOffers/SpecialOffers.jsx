@@ -133,14 +133,6 @@ const SpecialOffers = () => {
 
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-gray-50 relative overflow-hidden">
-      {/* Background decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-        <div className="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-blue-200 opacity-10"></div>
-        <div className="absolute top-1/4 -right-20 w-96 h-96 rounded-full bg-blue-100 opacity-10"></div>
-        <div className="absolute bottom-10 left-1/3 w-48 h-48 rounded-full bg-blue-300 opacity-10"></div>
-        <div className="absolute top-3/4 left-1/4 w-32 h-32 rounded-full bg-blue-100 opacity-10"></div>
-        <div className="absolute -bottom-16 right-1/4 w-56 h-56 rounded-full bg-blue-200 opacity-10"></div>
-      </div>
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 

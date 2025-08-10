@@ -14,12 +14,12 @@ const Home = () => {
   useDocumentTitle('Home');
   
   return (
-    <div className='w-full' style={{ paddingTop: 'var(--nav-height)' }}>
+    <div className='w-full home-page' style={{ paddingTop: 'var(--nav-height)' }}>
       {/* Banner Section */}
       <Banner />
       
-      {/* Featured Categories Section */}
-      <FeaturedCategories />
+      {/* Featured Categories Section (hide decorative circles on homepage) */}
+      <FeaturedCategories showDecorations={false} />
       
       {/* Special Offers Section */}
       <SpecialOffers />

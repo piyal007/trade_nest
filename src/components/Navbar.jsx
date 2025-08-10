@@ -186,7 +186,7 @@ const Navbar = forwardRef((props, ref) => {
                 </div>
                 <button
                   onClick={handleLogout}
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 btn"
+                  className="ui-btn ui-btn--filled bg-[var(--color-danger)] hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 >
                   Logout
                 </button>
@@ -195,13 +195,13 @@ const Navbar = forwardRef((props, ref) => {
               <div className="flex items-center space-x-4">
                 <Link
                   to="/login"
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="ui-btn ui-btn--filled"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="border-2 border-blue-500 text-blue-500 px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-500 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="ui-btn ui-btn--outline"
                 >
                   Register
                 </Link>
@@ -377,7 +377,7 @@ const Navbar = forwardRef((props, ref) => {
                     </div>
                     <button
                       onClick={handleLogout}
-                      className="mt-2 w-full bg-red-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                  className="mt-2 w-full ui-btn ui-btn--filled bg-[var(--color-danger)] hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                     >
                       Logout
                     </button>
@@ -387,13 +387,13 @@ const Navbar = forwardRef((props, ref) => {
                 <div className="space-y-2 px-3">
                   <Link
                     to="/login"
-                    className="block w-full bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="block w-full ui-btn ui-btn--filled"
                   >
                     Login
                   </Link>
                   <Link
                     to="/register"
-                    className="block w-full border-2 border-blue-500 text-blue-500 px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-500 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="block w-full ui-btn ui-btn--outline"
                   >
                     Register
                   </Link>

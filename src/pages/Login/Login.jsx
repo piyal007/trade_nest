@@ -158,7 +158,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="btn group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
+              className="ui-btn ui-btn--filled w-full justify-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <ClipLoader color="#ffffff" size={20} className="mr-2" />
@@ -182,7 +182,7 @@ const Login = () => {
             <button
               onClick={handleGoogleLogin}
               disabled={isGoogleLoading}
-              className="cursor-pointer w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-[1.02] disabled:opacity-70 disabled:cursor-not-allowed"
+              className="ui-btn ui-btn--outline w-full justify-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isGoogleLoading ? (
                 <ClipLoader color="#1d4ed8" size={20} className="mr-2" />

@@ -60,6 +60,40 @@ body{
 .text-accent { color: var(--color-accent); }
 .bg-danger { background-color: var(--color-danger); }
 .text-danger { color: var(--color-danger); }
+.border-danger { border-color: var(--color-danger); }
+
+/* Unified button styles (avoid DaisyUI 'btn' to prevent conflicts) */
+.ui-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-button);
+    font-weight: 600;
+    line-height: 1.25rem;
+    transition: background-color 200ms, color 200ms, border-color 200ms, transform 150ms;
+}
+.ui-btn:active { transform: translateY(0.5px); }
+
+.ui-btn--filled {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+.ui-btn--filled:hover { filter: brightness(0.95); }
+
+.ui-btn--accent { background-color: var(--color-accent); color: #fff; }
+.ui-btn--accent:hover { filter: brightness(0.95); }
+
+.ui-btn--danger { background-color: var(--color-danger); color: #fff; }
+.ui-btn--danger:hover { filter: brightness(0.95); }
+
+.ui-btn--outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+.ui-btn--outline:hover { background-color: rgba(37, 99, 235, 0.06); }
 
 /* Standard card surface with unified radius and border */
 .card-surface {
@@ -69,7 +103,169 @@ body{
   overflow: hidden;
 }
 
+/* Allow header card to show overflow so upward dropdowns are visible */
+.card-surface--header { overflow: visible; }
+
 /* Apply only the unified radius (for tinted/colored panels) */
 .radius-card {
   border-radius: var(--radius-card);
 }
+
+/* Toolbar controls: consistent look for header actions */
+.toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
+  background: transparent;
+  font-weight: 600;
+}
+.toolbar-btn:hover { background-color: rgba(37, 99, 235, 0.06); }
+.toolbar-btn--active { background-color: rgba(37, 99, 235, 0.10); }
+
+.toolbar-select {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
+  background: transparent;
+  font-weight: 600;
+}
+.toolbar-select option { color: #111827; }
+
+.dark .toolbar-btn { border-color: #3b82f6; color: #93c5fd; }
+.dark .toolbar-btn:hover { background-color: rgba(59, 130, 246, 0.10); }
+.dark .toolbar-btn--active { background-color: rgba(59, 130, 246, 0.16); }
+.dark .toolbar-select { border-color: #3b82f6; color: #bfdbfe; background: rgba(15, 23, 42, 0.6); }
+/* Ensure native dropdown options are visible in dark mode */
+.dark .toolbar-select option,
+.dark select option { color: #e5e7eb !important; background-color: #0f172a !important; }
+.dark .toolbar-select optgroup,
+.dark select optgroup { color: #cbd5e1 !important; background-color: #0f172a !important; }
+.dark .toolbar-select option:checked,
+.dark select option:checked { background-color: rgba(59, 130, 246, 0.35) !important; color: #e5e7eb !important; }
+
+/* Homepage targeted dark-mode refinements */
+.dark .home-page .banner-section .backdrop-brightness-75 { backdrop-filter: blur(4px) brightness(0.85); }
+.dark .home-page .banner-section .bg-black\/30 { background-color: rgba(0, 0, 0, 0.5) !important; }
+.dark .home-page .banner-section .text-amber-300 { color: #fde68a !important; }
+.dark .home-page .banner-section .text-blue-300 { color: #93c5fd !important; }
+.dark .home-page .banner-section .border-blue-400\/30 { border-color: rgba(96, 165, 250, 0.35) !important; }
+
+.dark .home-page section.bg-gray-50 { background-color: #0b1220 !important; }
+.dark .home-page section.bg-blue-50 { background-color: #0b1220 !important; }
+.dark .home-page .text-gray-800 { color: #f3f4f6 !important; }
+.dark .home-page .text-gray-700 { color: #e5e7eb !important; }
+.dark .home-page .text-gray-600 { color: #cbd5e1 !important; }
+.dark .home-page .border-gray-100 { border-color: #1f2937 !important; }
+.dark .home-page .text-blue-600 { color: #60a5fa !important; }
+.dark .home-page .text-blue-700 { color: #7ab8fb !important; }
+.dark .home-page .text-blue-800 { color: #93c5fd !important; }
+
+/* Homepage alternating section backgrounds for dark mode */
+.dark .home-page section { background-color: #0b1220 !important; border-top: 1px solid #16223a; }
+.dark .home-page .banner-section + section { background-color: #0d162b !important; }
+.dark .home-page .banner-section + section + section { background-color: #0b1220 !important; }
+.dark .home-page .banner-section + section + section + section { background-color: #0d162b !important; }
+.dark .home-page .banner-section + section + section + section + section { background-color: #0b1220 !important; }
+
+/* Homepage: enforce consistent vertical spacing between sections */
+.home-page .banner-section { margin-bottom: 4rem; }
+.home-page section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+@media (min-width: 768px) {
+  .home-page .banner-section { margin-bottom: 6rem; }
+  .home-page section { padding-top: 6rem !important; padding-bottom: 6rem !important; }
+}
+@media (min-width: 1024px) {
+  .home-page .banner-section { margin-bottom: 7rem; }
+  .home-page section { padding-top: 7rem !important; padding-bottom: 7rem !important; }
+}
+
+/* Dark mode remapping for common light-only utility classes used across components */
+.dark .bg-white { background-color: var(--surface-bg) !important; }
+.dark .bg-gray-50 { background-color: #0f172a !important; }
+.dark .bg-gray-100 { background-color: #111827 !important; }
+.dark .bg-gray-200 { background-color: #1f2937 !important; }
+
+.dark .border-gray-50 { border-color: #111827 !important; }
+.dark .border-gray-100 { border-color: var(--surface-border) !important; }
+.dark .border-gray-200 { border-color: #374151 !important; }
+.dark .border-gray-300 { border-color: #4b5563 !important; }
+
+.dark .text-gray-900 { color: #f9fafb !important; }
+.dark .text-gray-800 { color: #f3f4f6 !important; }
+.dark .text-gray-700 { color: #e5e7eb !important; }
+.dark .text-gray-600 { color: #d1d5db !important; }
+.dark .text-gray-500 { color: #94a3b8 !important; }
+.dark .text-gray-400 { color: #a1a1aa !important; }
+
+/* Common hover states used in lists/cards */
+.dark .hover\:bg-blue-50:hover { background-color: rgba(37, 99, 235, 0.12) !important; }
+.dark .hover\:bg-gray-50:hover { background-color: #0f172a !important; }
+.dark .hover\:bg-gray-100:hover { background-color: #111827 !important; }
+.dark .hover\:bg-gray-200:hover { background-color: #1f2937 !important; }
+
+/* Remap common blue tints used as backgrounds/badges in dark mode */
+.dark .bg-blue-50 { background-color: rgba(37, 99, 235, 0.15) !important; }
+.dark .bg-blue-100 { background-color: rgba(37, 99, 235, 0.18) !important; }
+.dark .bg-blue-200 { background-color: rgba(37, 99, 235, 0.22) !important; }
+.dark .bg-blue-300 { background-color: rgba(37, 99, 235, 0.28) !important; }
+.dark .text-blue-800 { color: #93c5fd !important; }
+.dark .text-blue-700 { color: #7ab8fb !important; }
+.dark .text-blue-600 { color: #60a5fa !important; }
+.dark .border-blue-100 { border-color: rgba(37, 99, 235, 0.25) !important; }
+
+/* Inputs, selects, textareas */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #0b1220 !important;
+  color: #f3f4f6 !important;
+  border-color: var(--surface-border) !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Divider utilities */
+.dark .divide-gray-100 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #1f2937 !important;
+}
+.dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #374151 !important;
+}
+.dark .divide-gray-300 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #4b5563 !important;
+}
+
+/* Focus ring offset should match dark background */
+.dark .focus\:ring-offset-2:focus {
+  --tw-ring-offset-color: #0b1220 !important;
+}
+
+/* All Products page: dark mode improvements without touching components */
+.dark .all-products-page { background-color: #0b1220 !important; }
+.dark .all-products-page .card-surface { background-color: #0e1830 !important; border-color: #1e293b !important; }
+.dark .all-products-page .text-gray-800 { color: #e5e7eb !important; }
+.dark .all-products-page .text-gray-700 { color: #d1d5db !important; }
+.dark .all-products-page .text-gray-600 { color: #cbd5e1 !important; }
+.dark .all-products-page .text-gray-500 { color: #94a3b8 !important; }
+.dark .all-products-page .bg-white { background-color: #0f172a !important; }
+.dark .all-products-page .bg-gray-50 { background-color: #0b1220 !important; }
+.dark .all-products-page .border-gray-100 { border-color: #1f2937 !important; }
+.dark .all-products-page .border-gray-200 { border-color: #374151 !important; }
+.dark .all-products-page .divide-gray-200 > :not([hidden]) ~ :not([hidden]) { border-color: #1f2937 !important; }
+.dark .all-products-page .bg-amber-50 { background-color: rgba(245, 158, 11, 0.15) !important; }
+.dark .all-products-page .text-amber-700 { color: #fcd34d !important; }
+.dark .all-products-page .bg-blue-50 { background-color: rgba(37, 99, 235, 0.15) !important; }
+.dark .all-products-page .bg-blue-100 { background-color: rgba(37, 99, 235, 0.2) !important; }
+.dark .all-products-page .text-blue-600 { color: #60a5fa !important; }
+.dark .all-products-page .text-blue-700 { color: #7ab8fb !important; }
+.dark .all-products-page .text-blue-800 { color: #93c5fd !important; }
+.dark .all-products-page .hover\:bg-blue-50:hover { background-color: rgba(37, 99, 235, 0.12) !important; }

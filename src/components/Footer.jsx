@@ -1,9 +1,26 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import API_URL from '../config/apiConfig';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [footerCategories, setFooterCategories] = useState([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      try {
+        const res = await fetch(`${API_URL}/categories`);
+        if (!res.ok) throw new Error('Failed to load categories');
+        const data = await res.json();
+        if (isMounted) setFooterCategories(Array.isArray(data) ? data.slice(0, 5) : []);
+      } catch {
+        if (isMounted) setFooterCategories([]);
+      }
+    })();
+    return () => { isMounted = false; };
+  }, []);
 
   return (
     <footer className="bg-gray-900 text-white pt-12 pb-8">
@@ -46,11 +63,19 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Categories</h3>
             <ul className="space-y-2">
-              <li><Link to="/categories/electronics" className="text-gray-400 hover:text-blue-400 transition-colors">Electronics</Link></li>
-              <li><Link to="/categories/fashion" className="text-gray-400 hover:text-blue-400 transition-colors">Fashion</Link></li>
-              <li><Link to="/categories/home-appliance" className="text-gray-400 hover:text-blue-400 transition-colors">Home Appliance</Link></li>
-              <li><Link to="/categories/machinery" className="text-gray-400 hover:text-blue-400 transition-colors">Machinery</Link></li>
-              <li><Link to="/categories/gadgets" className="text-gray-400 hover:text-blue-400 transition-colors">Gadgets</Link></li>
+              {footerCategories.length > 0 ? (
+                footerCategories.map((cat) => (
+                  <li key={cat._id}>
+                    <Link to={`/category/${cat._id}`} className="text-gray-400 hover:text-blue-400 transition-colors">
+                      {cat.name}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li>
+                  <Link to="/categories" className="text-gray-400 hover:text-blue-400 transition-colors">All Categories</Link>
+                </li>
+              )}
             </ul>
           </div>
 

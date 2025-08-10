@@ -5,6 +5,26 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TradeNest</title>
+    <script>
+      // Apply theme before React mounts to avoid flash
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = saved === 'dark' || (saved !== 'light' && prefersDark);
+          var html = document.documentElement;
+          var body = document.body;
+          html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+          if (isDark) {
+            html.classList.add('dark');
+            body.classList.add('dark');
+          } else {
+            html.classList.remove('dark');
+            body.classList.remove('dark');
+          }
+        } catch (_) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

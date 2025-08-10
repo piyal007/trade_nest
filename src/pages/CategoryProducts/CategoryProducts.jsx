@@ -119,7 +119,7 @@ const CategoryProducts = () => {
                 </div>
                 <Link 
                   to="/categories" 
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                  className="ui-btn ui-btn--filled"
                 >
                   Back to Categories
                 </Link>
@@ -215,7 +215,7 @@ const CategoryProducts = () => {
                     <div className="mt-auto">
                       <Link 
                         to={`/product/${product._id}`} 
-                        className="w-full px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
+                        className="ui-btn ui-btn--filled w-full justify-center text-sm shadow-md"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M10 2a.75.75 0 01.75.75v12.59l1.95-2.1a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 111.1-1.02l1.95 2.1V2.75A.75.75 0 0110 2z" clipRule="evenodd" />

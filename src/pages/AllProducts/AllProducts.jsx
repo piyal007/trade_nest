@@ -68,7 +68,7 @@ const AllProducts = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50" style={{ paddingTop: 'var(--nav-height)' }}>
+      <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 all-products-page" style={{ paddingTop: 'var(--nav-height)' }}>
         <div className="relative">
           <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-200 border-solid"></div>
           <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-blue-600 border-solid absolute top-0"></div>
@@ -80,7 +80,7 @@ const AllProducts = () => {
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8 bg-gray-50" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
+      <div className="container mx-auto px-4 py-8 bg-gray-50 all-products-page" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
         <div className="card-surface shadow-lg p-8 max-w-2xl mx-auto">
           <div className="flex items-center mb-4 text-red-500">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-3" viewBox="0 0 20 20" fill="currentColor">
@@ -95,7 +95,7 @@ const AllProducts = () => {
           <div className="mt-6 text-center">
             <button 
               onClick={() => window.location.reload()} 
-              className="inline-flex items-center bg-red-100 text-red-700 font-medium py-2 px-4 rounded-lg hover:bg-red-200 transition-colors duration-300"
+              className="ui-btn ui-btn--danger"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
@@ -111,7 +111,7 @@ const AllProducts = () => {
   // Check if there are no products at all or no products matching the filter
   if (products.length === 0 || (showAvailable && filteredProducts.length === 0)) {
     return (
-      <div className="container mx-auto px-4 py-8 bg-gray-50" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
+      <div className="container mx-auto px-4 py-8 bg-gray-50 all-products-page" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
           <div className="card-surface shadow-lg p-10 max-w-2xl mx-auto text-center">
           <div className="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-50 text-blue-600">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -129,7 +129,7 @@ const AllProducts = () => {
           {showAvailable && filteredProducts.length === 0 && products.length > 0 && (
             <button 
               onClick={() => setShowAvailable(false)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="ui-btn ui-btn--filled"
             >
               Show All Products
             </button>
@@ -140,8 +140,8 @@ const AllProducts = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-gray-50" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8 card-surface p-6 shadow-md">
+    <div className="container mx-auto px-4 py-8 bg-gray-50 all-products-page" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8 card-surface card-surface--header p-6 shadow-md">
         <div className="mb-4 md:mb-0">
           <h1 className="text-3xl font-bold text-gray-800 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
@@ -151,11 +151,11 @@ const AllProducts = () => {
           </h1>
           <p className="text-gray-600 mt-1">Browse all available products</p>
         </div>
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           {/* View Toggle Dropdown */}
           <div className="relative">
             <button 
-              className="px-4 py-2 rounded-lg font-medium flex items-center bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors"
+              className="toolbar-btn w-full sm:w-auto justify-between"
               onClick={() => document.getElementById('viewDropdown').classList.toggle('hidden')}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -170,14 +170,14 @@ const AllProducts = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </button>
-            <div id="viewDropdown" className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-10">
+            <div id="viewDropdown" className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-[#0f172a] border border-gray-200 dark:border-gray-700 rounded-md shadow-xl hidden z-50">
               <div className="py-1">
                 <button 
                   onClick={() => {
                     setViewMode('card');
                     document.getElementById('viewDropdown').classList.add('hidden');
                   }}
-                  className={`block w-full text-left px-4 py-2 text-sm ${viewMode === 'card' ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-100'}`}
+                  className={`block w-full text-left px-4 py-2 text-sm ${viewMode === 'card' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'}`}
                 >
                   Card View
                 </button>
@@ -186,7 +186,7 @@ const AllProducts = () => {
                     setViewMode('table');
                     document.getElementById('viewDropdown').classList.add('hidden');
                   }}
-                  className={`block w-full text-left px-4 py-2 text-sm ${viewMode === 'table' ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-100'}`}
+                  className={`block w-full text-left px-4 py-2 text-sm ${viewMode === 'table' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'}`}
                 >
                   Table View
                 </button>
@@ -197,7 +197,7 @@ const AllProducts = () => {
           {/* Filter Button */}
           <button 
             onClick={() => setShowAvailable(!showAvailable)}
-            className={`px-4 py-2 rounded-lg font-medium flex items-center transition-colors ${showAvailable ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+            className={`toolbar-btn w-full sm:w-auto ${showAvailable ? 'toolbar-btn--active' : ''}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
@@ -212,7 +212,7 @@ const AllProducts = () => {
               id="sortSelect"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-2 rounded-lg font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none"
+              className="toolbar-select w-full sm:w-auto"
             >
               <option value="none">Sort: Default</option>
               <option value="priceAsc">Price: Low to High</option>
@@ -239,7 +239,7 @@ const AllProducts = () => {
                 <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
                   {product.category}
                 </div>
-                <div className="absolute top-3 right-3 bg-blue-100 text-blue-600 text-xs font-bold px-2 py-1 rounded-full">
+                <div className="absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded-full bg-blue-500/15 text-blue-300 backdrop-blur-sm ring-1 ring-inset ring-blue-300/30 dark:bg-blue-400/20 dark:text-blue-200">
                   {product.brandName}
                 </div>
               </div>

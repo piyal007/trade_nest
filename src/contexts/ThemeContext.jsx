@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 const ThemeContext = createContext();
 
@@ -11,24 +11,37 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }) => {
+  // Determine if user has explicitly chosen a theme previously
+  const initialSavedTheme = useMemo(() => localStorage.getItem('theme'), []);
+  const [hasExplicitPreference, setHasExplicitPreference] = useState(
+    () => initialSavedTheme === 'dark' || initialSavedTheme === 'light'
+  );
+
+  const getSystemPrefersDark = () =>
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Prefer persisted user choice; otherwise default to light mode
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme ? savedTheme === 'dark' : false;
+    if (initialSavedTheme === 'dark') return true;
+    if (initialSavedTheme === 'light') return false;
+    return getSystemPrefersDark();
   });
 
   const toggleTheme = () => {
-    setIsDarkMode(prev => !prev);
+    setHasExplicitPreference(true);
+    setIsDarkMode((previous) => !previous);
   };
 
+  // Persist only when user explicitly chooses
   useEffect(() => {
-    // Update localStorage
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-    
-    // Update document attributes
+    if (hasExplicitPreference) {
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+    }
+  }, [hasExplicitPreference, isDarkMode]);
+
+  // Apply theme to document immediately on changes
+  useEffect(() => {
     const html = document.documentElement;
     const body = document.body;
-    
     if (isDarkMode) {
       html.setAttribute('data-theme', 'dark');
       html.classList.add('dark');
@@ -40,24 +53,18 @@ export const ThemeProvider = ({ children }) => {
     }
   }, [isDarkMode]);
 
-  // Listen for system theme changes
+  // Follow system changes only when no explicit preference
   useEffect(() => {
+    if (hasExplicitPreference) return;
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    const handleChange = (e) => {
-      // Only update if user hasn't manually set a preference; otherwise respect localStorage
-      if (!localStorage.getItem('theme')) {
-        setIsDarkMode(e.matches);
-      }
-    };
-
+    const handleChange = (event) => setIsDarkMode(event.matches);
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
+  }, [hasExplicitPreference]);
 
   const value = {
     isDarkMode,
-    toggleTheme
+    toggleTheme,
   };
 
   return (
