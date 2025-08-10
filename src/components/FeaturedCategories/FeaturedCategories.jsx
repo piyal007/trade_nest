@@ -144,11 +144,7 @@ const FeaturedCategories = ({ showDecorations = true }) => {
         
         {loading ? (
           <div className="flex justify-center items-center h-60">
-            <motion.div 
-              className="rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"
-              variants={spinnerVariants}
-              animate="animate"
-            ></motion.div>
+            <span className="loading loading-bars loading-lg text-blue-500"></span>
           </div>
         ) : error ? (
               <motion.div 

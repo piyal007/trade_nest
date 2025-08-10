@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../../Firebase/firebase.config';
 import Swal from 'sweetalert2';
-import { ClipLoader } from 'react-spinners';
 import { useAuth } from '../../contexts/AuthContext';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
 
@@ -193,7 +192,7 @@ const Register = () => {
             >
               {isLoading ? (
                 <div className="flex items-center">
-                  <ClipLoader size={20} color="#ffffff" />
+                  <span className="loading loading-bars loading-xs text-white"></span>
                   <span className="ml-2">Creating Account...</span>
                 </div>
               ) : (

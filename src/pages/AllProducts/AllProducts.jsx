@@ -69,10 +69,7 @@ const AllProducts = () => {
   if (loading) {
     return (
       <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 all-products-page" style={{ paddingTop: 'var(--nav-height)' }}>
-        <div className="relative">
-          <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-200 border-solid"></div>
-          <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-blue-600 border-solid absolute top-0"></div>
-        </div>
+        <span className="loading loading-bars loading-lg text-blue-500"></span>
         <p className="mt-4 text-gray-600 font-medium">Loading products...</p>
       </div>
     );

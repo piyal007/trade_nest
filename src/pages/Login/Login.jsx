@@ -4,7 +4,6 @@ import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 
 import { auth } from '../../Firebase/firebase.config';
 import Swal from 'sweetalert2';
 import { FcGoogle } from 'react-icons/fc';
-import { ClipLoader } from 'react-spinners';
 import { useAuth } from '../../contexts/AuthContext';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
 
@@ -161,7 +160,7 @@ const Login = () => {
               className="ui-btn ui-btn--filled w-full justify-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isLoading ? (
-                <ClipLoader color="#ffffff" size={20} className="mr-2" />
+                <span className="loading loading-bars loading-xs text-white mr-2"></span>
               ) : null}
               Sign in
             </button>
@@ -185,7 +184,7 @@ const Login = () => {
               className="ui-btn ui-btn--outline w-full justify-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isGoogleLoading ? (
-                <ClipLoader color="#1d4ed8" size={20} className="mr-2" />
+                <span className="loading loading-bars loading-xs text-blue-600 mr-2"></span>
               ) : (
                 <FcGoogle className="h-5 w-5 mr-2" />
               )}

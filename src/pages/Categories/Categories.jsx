@@ -52,7 +52,7 @@ const Categories = () => {
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+            <span className="loading loading-bars loading-lg text-blue-500"></span>
           </div>
         ) : error ? (
           <div className="text-center py-10">

@@ -108,7 +108,7 @@ const Cart = () => {
     return (
       <div className="container mx-auto px-4 py-8 pt-24">
         <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-500"></div>
+          <span className="loading loading-bars loading-lg text-blue-500"></span>
         </div>
       </div>
     );

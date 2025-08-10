@@ -21,8 +21,8 @@ export const LoadingProvider = ({ children }) => {
   return (
     <LoadingContext.Provider value={{ loading, setLoading }}>
       {loading && (
-        <div className="loading-container">
-          <span className="loader"></span>
+        <div className="loading-container flex items-center justify-center">
+          <span className="loading loading-bars loading-lg text-blue-500"></span>
         </div>
       )}
       {children}

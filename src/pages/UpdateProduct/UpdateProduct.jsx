@@ -185,7 +185,7 @@ const UpdateProduct = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen" style={{ paddingTop: 'var(--nav-height)' }}>
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+        <span className="loading loading-bars loading-lg text-blue-500"></span>
       </div>
     );
   }
