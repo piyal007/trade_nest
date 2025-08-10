@@ -16,6 +16,10 @@
   /* Surfaces */
   --surface-bg: #ffffff;
   --surface-border: #e5e7eb; /* gray-200 */
+
+  /* Radii */
+  --radius-card: 12px;
+  --radius-button: 10px;
 }
 
 
@@ -56,3 +60,16 @@ body{
 .text-accent { color: var(--color-accent); }
 .bg-danger { background-color: var(--color-danger); }
 .text-danger { color: var(--color-danger); }
+
+/* Standard card surface with unified radius and border */
+.card-surface {
+  border-radius: var(--radius-card);
+  background-color: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  overflow: hidden;
+}
+
+/* Apply only the unified radius (for tinted/colored panels) */
+.radius-card {
+  border-radius: var(--radius-card);
+}

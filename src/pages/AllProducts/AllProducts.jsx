@@ -81,7 +81,7 @@ const AllProducts = () => {
   if (error) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-50" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
+        <div className="card-surface shadow-lg p-8 max-w-2xl mx-auto">
           <div className="flex items-center mb-4 text-red-500">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-3" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
@@ -112,7 +112,7 @@ const AllProducts = () => {
   if (products.length === 0 || (showAvailable && filteredProducts.length === 0)) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-50" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
-        <div className="bg-white rounded-xl shadow-lg p-10 max-w-2xl mx-auto text-center">
+          <div className="card-surface shadow-lg p-10 max-w-2xl mx-auto text-center">
           <div className="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-50 text-blue-600">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -141,7 +141,7 @@ const AllProducts = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 bg-gray-50" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8 bg-white p-6 rounded-xl shadow-md">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8 card-surface p-6 shadow-md">
         <div className="mb-4 md:mb-0">
           <h1 className="text-3xl font-bold text-gray-800 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
@@ -226,7 +226,7 @@ const AllProducts = () => {
       {viewMode === 'card' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sortedProducts.map((product) => (
-            <div key={product._id} className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
+            <div key={product._id} className="card-surface shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
               <div className="relative group h-48">
                 <div className="h-full w-full overflow-hidden">
                   <img 
@@ -234,7 +234,7 @@ const AllProducts = () => {
                     alt={product.name} 
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/600 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 radius-card"></div>
                 </div>
                 <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
                   {product.category}
@@ -325,7 +325,7 @@ const AllProducts = () => {
           ))}
         </div>
       ) : (
-        <div className="overflow-x-auto bg-white rounded-xl shadow-lg border border-gray-100">
+        <div className="overflow-x-auto card-surface shadow-lg">
           {/* Mobile card view for small screens */}
           <div className="block md:hidden">
             {sortedProducts.map((product, index) => (

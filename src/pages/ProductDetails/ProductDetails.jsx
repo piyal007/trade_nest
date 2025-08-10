@@ -275,7 +275,7 @@ const ProductDetails = () => {
 
   return (
     <div className="container mx-auto px-4 pb-8 pt-18">
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+      <div className="card-surface shadow-lg">
         <div className="flex flex-col lg:flex-row">
           {/* Product Image */}
           <div className="lg:w-1/2 relative overflow-hidden bg-gray-100">

@@ -153,7 +153,7 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div 
               key={index} 
-              className="bg-white rounded-xl p-8 shadow-lg border border-gray-100 flex flex-col h-full relative"
+              className="card-surface p-8 shadow-lg flex flex-col h-full relative"
               variants={cardVariants}
               whileHover="hover"
             >

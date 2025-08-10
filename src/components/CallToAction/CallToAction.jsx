@@ -56,7 +56,7 @@ const CallToAction = () => {
           animate="visible"
         >
           {features.map((f, idx) => (
-            <motion.div key={idx} className="bg-white rounded-xl shadow-md border border-gray-100 p-6 h-full" variants={itemVariants}>
+            <motion.div key={idx} className="card-surface shadow-md p-6 h-full" variants={itemVariants}>
               <div className="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-4 text-xl">
                 {f.icon}
               </div>
@@ -74,7 +74,7 @@ const CallToAction = () => {
           animate="visible"
         >
           {stats.map((s, idx) => (
-            <motion.div key={idx} className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 text-center" variants={itemVariants}>
+            <motion.div key={idx} className="card-surface shadow-sm p-5 text-center" variants={itemVariants}>
               <div className="mx-auto mb-2 w-10 h-10 rounded-lg bg-gray-100 text-gray-700 flex items-center justify-center">
                 <span className="text-base">{s.icon}</span>
               </div>

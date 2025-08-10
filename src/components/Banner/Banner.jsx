@@ -157,8 +157,8 @@ const Banner = () => {
                   animate="visible"
                   transition={{ duration: 0.7 }}
                 >
-                  <motion.div 
-                    className="backdrop-blur-sm backdrop-brightness-75 bg-black/30 p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl"
+                    <motion.div 
+                      className="backdrop-blur-sm backdrop-brightness-75 bg-black/30 p-6 sm:p-8 md:p-10 radius-card shadow-2xl"
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"

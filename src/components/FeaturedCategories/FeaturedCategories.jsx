@@ -147,13 +147,13 @@ const FeaturedCategories = () => {
             ></motion.div>
           </div>
         ) : error ? (
-          <motion.div 
-            className="text-center py-12 bg-red-50 rounded-xl shadow-sm"
+              <motion.div 
+                className="text-center py-12 card-surface shadow-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-red-500 font-medium text-lg">{error}</p>
+                <p className="text-danger font-medium text-lg">{error}</p>
           </motion.div>
         ) : (
           <motion.div 
@@ -164,7 +164,7 @@ const FeaturedCategories = () => {
           >
             {categories.length === 0 ? (
               <motion.div 
-                className="col-span-5 text-center py-12 bg-gray-50 rounded-xl shadow-sm"
+                className="col-span-5 text-center py-12 card-surface shadow-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
@@ -175,7 +175,7 @@ const FeaturedCategories = () => {
               categories.map((category) => (
                 <Link to={`/category/${category._id}`} key={category._id} className="block h-full">
                   <motion.div 
-                    className="bg-white rounded-xl shadow-md overflow-hidden h-full flex flex-col transform transition-all duration-300"
+                    className="card-surface shadow-md h-full flex flex-col transform transition-all duration-300"
                     variants={cardVariants}
                     whileHover="hover"
                   >

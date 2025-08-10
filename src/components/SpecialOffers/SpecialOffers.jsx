@@ -165,7 +165,7 @@ const SpecialOffers = () => {
           {offers.map((offer, index) => (
             <motion.div 
               key={index} 
-              className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 group h-full flex flex-col"
+              className="card-surface shadow-xl group h-full flex flex-col"
               variants={cardVariants}
               whileHover="hover"
             >
