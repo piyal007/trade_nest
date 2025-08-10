@@ -167,24 +167,21 @@ body{
 .dark .home-page .text-blue-700 { color: #7ab8fb !important; }
 .dark .home-page .text-blue-800 { color: #93c5fd !important; }
 
+/* Homepage alternating backgrounds: light mode */
+.home-page section { background-color: #ffffff !important; margin: 0 !important; }
+.home-page .banner-section { margin-bottom: 0 !important; }
+.home-page section:nth-of-type(odd) { background-color: #f9fafb !important; }
+.home-page section:nth-of-type(even) { background-color: #ffffff !important; }
+
 /* Homepage alternating section backgrounds for dark mode */
-.dark .home-page section { background-color: #0b1220 !important; border-top: 1px solid #16223a; }
+.dark .home-page section { background-color: #0b1220 !important; }
 .dark .home-page .banner-section + section { background-color: #0d162b !important; }
 .dark .home-page .banner-section + section + section { background-color: #0b1220 !important; }
 .dark .home-page .banner-section + section + section + section { background-color: #0d162b !important; }
 .dark .home-page .banner-section + section + section + section + section { background-color: #0b1220 !important; }
 
-/* Homepage: enforce consistent vertical spacing between sections */
-.home-page .banner-section { margin-bottom: 4rem; }
-.home-page section { padding-top: 4rem !important; padding-bottom: 4rem !important; }
-@media (min-width: 768px) {
-  .home-page .banner-section { margin-bottom: 6rem; }
-  .home-page section { padding-top: 6rem !important; padding-bottom: 6rem !important; }
-}
-@media (min-width: 1024px) {
-  .home-page .banner-section { margin-bottom: 7rem; }
-  .home-page section { padding-top: 7rem !important; padding-bottom: 7rem !important; }
-}
+/* Homepage: remove external gaps; keep component internal padding */
+.home-page section { margin-top: 0 !important; margin-bottom: 0 !important; }
 
 /* Dark mode remapping for common light-only utility classes used across components */
 .dark .bg-white { background-color: var(--surface-bg) !important; }
