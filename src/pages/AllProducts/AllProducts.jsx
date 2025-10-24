@@ -80,17 +80,17 @@ const AllProducts = () => {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 all-products-page" style={{ paddingTop: 'var(--nav-height)' }}>
-        <span className="loading loading-bars loading-lg text-blue-500"></span>
-        <p className="mt-4 text-gray-600 font-medium">Loading products...</p>
+      <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50 all-products-page animate-fade-in" style={{ paddingTop: 'var(--nav-height)' }}>
+        <span className="loading loading-bars loading-lg text-blue-500 animate-pulse"></span>
+        <p className="mt-4 text-gray-600 font-medium animate-fade-in" style={{ animationDelay: '0.2s' }}>Loading products...</p>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8 bg-gray-50 all-products-page" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
-        <div className="card-surface shadow-lg p-8 max-w-2xl mx-auto">
+      <div className="container mx-auto px-4 py-8 bg-gray-50 all-products-page animate-fade-in" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
+        <div className="card-surface shadow-lg p-8 max-w-2xl mx-auto animate-slide-up">
           <div className="flex items-center mb-4 text-red-500">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-3" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
@@ -120,8 +120,8 @@ const AllProducts = () => {
   // Check if there are no products at all or no products matching the filter
   if (products.length === 0 || (showAvailable && filteredProducts.length === 0)) {
     return (
-      <div className="container mx-auto px-4 py-8 bg-gray-50 all-products-page" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
-        <div className="card-surface shadow-lg p-10 max-w-2xl mx-auto text-center">
+      <div className="container mx-auto px-4 py-8 bg-gray-50 all-products-page animate-fade-in" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
+        <div className="card-surface shadow-lg p-10 max-w-2xl mx-auto text-center animate-slide-up">
           <div className="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-50 text-blue-600">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -149,8 +149,8 @@ const AllProducts = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-gray-50 all-products-page" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8 card-surface card-surface--header p-6 shadow-md">
+    <div className="container mx-auto px-4 py-8 bg-gray-50 all-products-page animate-fade-in" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8 card-surface card-surface--header p-6 shadow-md animate-slide-down">
         <div className="mb-4 md:mb-0">
           <h1 className="text-3xl font-bold text-gray-800 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mr-2 text-blue-600" viewBox="0 0 20 20" fill="currentColor">
@@ -162,17 +162,17 @@ const AllProducts = () => {
         </div>
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           {/* Search Input */}
-          <div className="relative w-full sm:w-64">
+          <div className="relative w-full sm:w-64 group">
             <input
               type="text"
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+              className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-600 dark:text-white transition-all duration-300 focus:shadow-lg"
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 transition-all duration-300 group-focus-within:text-blue-500 group-focus-within:scale-110"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -182,7 +182,7 @@ const AllProducts = () => {
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-red-500 transition-all duration-300 hover:scale-110 hover:rotate-90 animate-fade-in"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -194,7 +194,7 @@ const AllProducts = () => {
           {/* View Toggle Dropdown */}
           <div className="relative">
             <button
-              className="toolbar-btn w-full sm:w-auto justify-between"
+              className="toolbar-btn w-full sm:w-auto justify-between transition-all duration-300 hover:shadow-md hover:scale-105 active:scale-95"
               onClick={() => document.getElementById('viewDropdown').classList.toggle('hidden')}
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -209,14 +209,14 @@ const AllProducts = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </button>
-            <div id="viewDropdown" className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-[#0f172a] border border-gray-200 dark:border-gray-700 rounded-md shadow-xl hidden z-50">
+            <div id="viewDropdown" className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-[#0f172a] border border-gray-200 dark:border-gray-700 rounded-md shadow-xl hidden z-50 animate-slide-down origin-top">
               <div className="py-1">
                 <button
                   onClick={() => {
                     setViewMode('card');
                     document.getElementById('viewDropdown').classList.add('hidden');
                   }}
-                  className={`block w-full text-left px-4 py-2 text-sm ${viewMode === 'card' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'}`}
+                  className={`block w-full text-left px-4 py-2 text-sm transition-all duration-200 ${viewMode === 'card' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 hover:pl-5'}`}
                 >
                   Card View
                 </button>
@@ -225,7 +225,7 @@ const AllProducts = () => {
                     setViewMode('table');
                     document.getElementById('viewDropdown').classList.add('hidden');
                   }}
-                  className={`block w-full text-left px-4 py-2 text-sm ${viewMode === 'table' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'}`}
+                  className={`block w-full text-left px-4 py-2 text-sm transition-all duration-200 ${viewMode === 'table' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' : 'text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 hover:pl-5'}`}
                 >
                   Table View
                 </button>
@@ -236,7 +236,7 @@ const AllProducts = () => {
           {/* Filter Button */}
           <button
             onClick={() => setShowAvailable(!showAvailable)}
-            className={`toolbar-btn w-full sm:w-auto ${showAvailable ? 'toolbar-btn--active' : ''}`}
+            className={`toolbar-btn w-full sm:w-auto transition-all duration-300 hover:shadow-md hover:scale-105 active:scale-95 ${showAvailable ? 'toolbar-btn--active' : ''}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
@@ -251,7 +251,7 @@ const AllProducts = () => {
               id="sortSelect"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="toolbar-select w-full sm:w-auto"
+              className="toolbar-select w-full sm:w-auto transition-all duration-300 hover:shadow-md focus:shadow-lg focus:scale-105"
             >
               <option value="none">Sort: Default</option>
               <option value="priceAsc">Price: Low to High</option>
@@ -264,21 +264,25 @@ const AllProducts = () => {
       {/* Product Display - Card or Table View */}
       {viewMode === 'card' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {sortedProducts.map((product) => (
-            <div key={product._id} className="card-surface shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
-              <div className="relative group h-48">
+          {sortedProducts.map((product, index) => (
+            <div 
+              key={product._id} 
+              className="card-surface shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full transform hover:-translate-y-2 hover:scale-105 animate-fade-in-up cursor-pointer"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            >
+              <div className="relative group h-48 overflow-hidden">
                 <div className="h-full w-full overflow-hidden">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 radius-card"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 radius-card"></div>
                 </div>
-                <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
                   {product.category}
                 </div>
-                <div className="absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded-full bg-blue-500/15 text-blue-300 backdrop-blur-sm ring-1 ring-inset ring-blue-300/30 dark:bg-blue-400/20 dark:text-blue-200">
+                <div className="absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded-full bg-blue-500/15 text-blue-300 backdrop-blur-sm ring-1 ring-inset ring-blue-300/30 dark:bg-blue-400/20 dark:text-blue-200 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
                   {product.brandName}
                 </div>
               </div>
@@ -315,21 +319,21 @@ const AllProducts = () => {
                   <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">{product.description}</p>
 
                   <div className="grid grid-cols-3 gap-2 mb-4">
-                    <div className="bg-blue-50 p-2 rounded-lg border border-blue-100">
+                    <div className="bg-blue-50 p-2 rounded-lg border border-blue-100 transition-all duration-300 hover:shadow-md hover:scale-105 hover:bg-blue-100">
                       <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Price</span>
                       <div className="flex items-baseline">
                         <span className="font-bold text-lg text-gray-800">${product.price}</span>
                       </div>
                     </div>
 
-                    <div className="bg-blue-50 p-2 rounded-lg border border-blue-100">
+                    <div className="bg-blue-50 p-2 rounded-lg border border-blue-100 transition-all duration-300 hover:shadow-md hover:scale-105 hover:bg-blue-100">
                       <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Qty</span>
                       <div className="flex items-baseline">
                         <span className="font-bold text-lg text-gray-800">{product.mainQuantity}</span>
                       </div>
                     </div>
 
-                    <div className="bg-amber-50 p-2 rounded-lg border border-amber-100">
+                    <div className="bg-amber-50 p-2 rounded-lg border border-amber-100 transition-all duration-300 hover:shadow-md hover:scale-105 hover:bg-amber-100">
                       <span className="block text-amber-600 text-xs font-semibold uppercase tracking-wide mb-1">Min</span>
                       <div className="flex items-baseline">
                         <span className="font-bold text-lg text-gray-800">{product.minSellingQuantity}</span>
@@ -350,9 +354,9 @@ const AllProducts = () => {
                   </Link> */}
                   <Link
                     to={`/product/${product._id}`}
-                    className="w-full px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center"
+                    className="w-full px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center hover:shadow-xl hover:scale-105 active:scale-95 group/btn"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 transition-transform duration-300 group-hover/btn:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
@@ -364,11 +368,15 @@ const AllProducts = () => {
           ))}
         </div>
       ) : (
-        <div className="overflow-x-auto card-surface shadow-lg">
+        <div className="overflow-x-auto card-surface shadow-lg animate-fade-in">
           {/* Mobile card view for small screens */}
           <div className="block md:hidden">
             {sortedProducts.map((product, index) => (
-              <div key={product._id} className={`p-4 border-b ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} transition-all duration-200 hover:bg-blue-50`}>
+              <div 
+                key={product._id} 
+                className={`p-4 border-b ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} transition-all duration-300 hover:bg-blue-50 hover:shadow-md hover:scale-[1.02] animate-fade-in-up cursor-pointer`}
+                style={{ animationDelay: `${index * 0.05}s` }}
+              >
                 <div className="flex items-start mb-4">
                   <div className="flex-shrink-0 h-20 w-20 mr-4">
                     <img className="h-20 w-20 rounded-lg object-cover shadow-sm border border-gray-200" src={product.image} alt={product.name} />
@@ -464,7 +472,11 @@ const AllProducts = () => {
             </thead>
             <tbody className="bg-white">
               {sortedProducts.map((product, index) => (
-                <tr key={product._id} className={`hover:bg-blue-50 transition-colors duration-150 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                <tr 
+                  key={product._id} 
+                  className={`hover:bg-blue-50 transition-all duration-300 hover:shadow-md cursor-pointer animate-fade-in-up ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
+                  style={{ animationDelay: `${index * 0.03}s` }}
+                >
                   <td className="px-4 py-5 border-b border-gray-100">
                     <div className="flex items-center">
                       <div className="flex-shrink-0 h-12 w-12 mr-3">
