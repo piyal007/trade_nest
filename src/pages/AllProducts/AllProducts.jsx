@@ -7,7 +7,7 @@ import API_URL from '../../config/apiConfig';
 const AllProducts = () => {
   // Set document title for All Products page
   useDocumentTitle('All Products');
-  
+
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [showAvailable, setShowAvailable] = useState(false);
@@ -15,6 +15,7 @@ const AllProducts = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sortBy, setSortBy] = useState('none'); // none | priceAsc | priceDesc
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -22,11 +23,11 @@ const AllProducts = () => {
         setLoading(true);
         // Fetch all products from the server
         const response = await fetch(`${API_URL}/products`);
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
-        
+
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);
@@ -37,21 +38,32 @@ const AllProducts = () => {
         setLoading(false);
       }
     };
-    
+
     fetchAllProducts();
   }, []);
-  
-  // Filter products when showAvailable changes
+
+  // Filter products when showAvailable or searchQuery changes
   useEffect(() => {
+    let filtered = products;
+
+    // Apply availability filter
     if (showAvailable) {
-      // Filter products with minSellingQuantity > 100
-      const available = products.filter(product => product.minSellingQuantity > 100);
-      setFilteredProducts(available);
-    } else {
-      // Show all products
-      setFilteredProducts(products);
+      filtered = filtered.filter(product => product.minSellingQuantity > 100);
     }
-  }, [showAvailable, products]);
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(product =>
+        product.name.toLowerCase().includes(query) ||
+        product.description.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query) ||
+        product.brandName.toLowerCase().includes(query)
+      );
+    }
+
+    setFilteredProducts(filtered);
+  }, [showAvailable, searchQuery, products]);
 
   // Compute a sorted list based on current sort selection
   const sortedProducts = useMemo(() => {
@@ -90,8 +102,8 @@ const AllProducts = () => {
             <p>{error}</p>
           </div>
           <div className="mt-6 text-center">
-            <button 
-              onClick={() => window.location.reload()} 
+            <button
+              onClick={() => window.location.reload()}
               className="ui-btn ui-btn--danger"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -109,7 +121,7 @@ const AllProducts = () => {
   if (products.length === 0 || (showAvailable && filteredProducts.length === 0)) {
     return (
       <div className="container mx-auto px-4 py-8 bg-gray-50 all-products-page" style={{ paddingTop: 'calc(var(--nav-height) + 2rem)' }}>
-          <div className="card-surface shadow-lg p-10 max-w-2xl mx-auto text-center">
+        <div className="card-surface shadow-lg p-10 max-w-2xl mx-auto text-center">
           <div className="mb-6 inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-50 text-blue-600">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -119,12 +131,12 @@ const AllProducts = () => {
             {products.length === 0 ? 'No Products Available' : 'No Products Match Filter'}
           </h2>
           <p className="text-gray-600 mb-8 text-lg">
-            {products.length === 0 
-              ? 'There are currently no products in the inventory' 
+            {products.length === 0
+              ? 'There are currently no products in the inventory'
               : 'No products with minimum selling quantity greater than 100'}
           </p>
           {showAvailable && filteredProducts.length === 0 && products.length > 0 && (
-            <button 
+            <button
               onClick={() => setShowAvailable(false)}
               className="ui-btn ui-btn--filled"
             >
@@ -149,9 +161,39 @@ const AllProducts = () => {
           <p className="text-gray-600 mt-1">Browse all available products</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          {/* Search Input */}
+          <div className="relative w-full sm:w-64">
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+              </button>
+            )}
+          </div>
+
           {/* View Toggle Dropdown */}
           <div className="relative">
-            <button 
+            <button
               className="toolbar-btn w-full sm:w-auto justify-between"
               onClick={() => document.getElementById('viewDropdown').classList.toggle('hidden')}
             >
@@ -169,7 +211,7 @@ const AllProducts = () => {
             </button>
             <div id="viewDropdown" className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-[#0f172a] border border-gray-200 dark:border-gray-700 rounded-md shadow-xl hidden z-50">
               <div className="py-1">
-                <button 
+                <button
                   onClick={() => {
                     setViewMode('card');
                     document.getElementById('viewDropdown').classList.add('hidden');
@@ -178,7 +220,7 @@ const AllProducts = () => {
                 >
                   Card View
                 </button>
-                <button 
+                <button
                   onClick={() => {
                     setViewMode('table');
                     document.getElementById('viewDropdown').classList.add('hidden');
@@ -190,9 +232,9 @@ const AllProducts = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Filter Button */}
-          <button 
+          <button
             onClick={() => setShowAvailable(!showAvailable)}
             className={`toolbar-btn w-full sm:w-auto ${showAvailable ? 'toolbar-btn--active' : ''}`}
           >
@@ -219,19 +261,19 @@ const AllProducts = () => {
         </div>
       </div>
 
-            {/* Product Display - Card or Table View */}
+      {/* Product Display - Card or Table View */}
       {viewMode === 'card' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sortedProducts.map((product) => (
             <div key={product._id} className="card-surface shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full transform hover:-translate-y-1">
               <div className="relative group h-48">
                 <div className="h-full w-full overflow-hidden">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
+                  <img
+                    src={product.image}
+                    alt={product.name}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 radius-card"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 radius-card"></div>
                 </div>
                 <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
                   {product.category}
@@ -240,7 +282,7 @@ const AllProducts = () => {
                   {product.brandName}
                 </div>
               </div>
-              
+
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex flex-col justify-between items-start mb-3 gap-2">
@@ -269,24 +311,24 @@ const AllProducts = () => {
                       <span className="font-medium text-amber-700 ml-1 text-sm">{product.rating.toFixed(1)}</span>
                     </div>
                   </div>
-                  
+
                   <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">{product.description}</p>
-                  
-                   <div className="grid grid-cols-3 gap-2 mb-4">
+
+                  <div className="grid grid-cols-3 gap-2 mb-4">
                     <div className="bg-blue-50 p-2 rounded-lg border border-blue-100">
                       <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Price</span>
                       <div className="flex items-baseline">
                         <span className="font-bold text-lg text-gray-800">${product.price}</span>
                       </div>
                     </div>
-                    
+
                     <div className="bg-blue-50 p-2 rounded-lg border border-blue-100">
                       <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Qty</span>
                       <div className="flex items-baseline">
                         <span className="font-bold text-lg text-gray-800">{product.mainQuantity}</span>
                       </div>
                     </div>
-                    
+
                     <div className="bg-amber-50 p-2 rounded-lg border border-amber-100">
                       <span className="block text-amber-600 text-xs font-semibold uppercase tracking-wide mb-1">Min</span>
                       <div className="flex items-baseline">
@@ -295,7 +337,7 @@ const AllProducts = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="mt-auto">
                   {/* <Link 
                     to={`/update-product/${product._id}`} 
@@ -334,7 +376,7 @@ const AllProducts = () => {
                   <div className="flex-1 min-w-0">
                     <h3 className="text-sm font-semibold text-gray-900 truncate">{product.name}</h3>
                     <p className="text-xs text-gray-500 line-clamp-2 mt-1">{product.description}</p>
-                    
+
                     <div className="flex flex-wrap gap-2 mt-2">
                       <span className="px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 truncate">
                         {product.category}
@@ -345,7 +387,7 @@ const AllProducts = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
                     <span className="block text-xs font-medium text-gray-500 mb-1.5">Rating</span>
@@ -371,13 +413,13 @@ const AllProducts = () => {
                       <span className="text-xs font-medium text-amber-700 ml-1.5">{product.rating.toFixed(1)}</span>
                     </div>
                   </div>
-                  
+
                   <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
                     <span className="block text-xs font-medium text-gray-500 mb-1.5">Price</span>
                     <span className="text-base font-bold text-blue-600 block text-center">${product.price}</span>
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div className="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
                     <span className="block text-xs font-medium text-gray-500 mb-1.5">Available</span>
@@ -388,7 +430,7 @@ const AllProducts = () => {
                     <span className="text-sm font-medium text-gray-700 bg-amber-50 px-2.5 py-1.5 rounded-md inline-block w-full text-center">{product.minSellingQuantity}</span>
                   </div>
                 </div>
-                
+
                 <div className="mt-3">
                   {/* <Link to={`/update-product/${product._id}`} className="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2.5 rounded-md transition-colors duration-200 inline-block text-center text-sm font-medium w-full shadow-sm">
                     Update
@@ -397,7 +439,7 @@ const AllProducts = () => {
               </div>
             ))}
           </div>
-          
+
           {/* Desktop table view for medium screens and up */}
           <table className="hidden md:table w-full table-fixed divide-y divide-gray-200">
             <colgroup>
@@ -468,7 +510,7 @@ const AllProducts = () => {
                     </div>
                   </td>
                   <td className="px-3 py-5 border-b border-gray-100 text-sm font-bold text-blue-600">${product.price}</td>
-                   <td className="px-3 py-5 border-b border-gray-100">
+                  <td className="px-3 py-5 border-b border-gray-100">
                     <span className="text-sm font-medium text-gray-700 bg-blue-50 px-3 py-1.5 rounded-md inline-block text-center">{product.mainQuantity}</span>
                   </td>
                   <td className="px-3 py-5 border-b border-gray-100">
