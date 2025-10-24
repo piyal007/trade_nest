@@ -265,8 +265,8 @@ const AllProducts = () => {
       {viewMode === 'card' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sortedProducts.map((product, index) => (
-            <div 
-              key={product._id} 
+            <div
+              key={product._id}
               className="card-surface shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full transform hover:-translate-y-2 hover:scale-105 animate-fade-in-up cursor-pointer"
               style={{ animationDelay: `${index * 0.05}s` }}
             >
@@ -275,14 +275,14 @@ const AllProducts = () => {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="h-full w-full object-cover transition-all duration-500 group-hover:scale-110"
+                    className="h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 radius-card"></div>
                 </div>
-                <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
+                <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
                   {product.category}
                 </div>
-                <div className="absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded-full bg-blue-500/15 text-blue-300 backdrop-blur-sm ring-1 ring-inset ring-blue-300/30 dark:bg-blue-400/20 dark:text-blue-200 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg">
+                <div className="absolute top-3 right-3 text-xs font-bold px-2 py-1 rounded-full bg-blue-500/15 text-blue-300 backdrop-blur-sm ring-1 ring-inset ring-blue-300/30 dark:bg-blue-400/20 dark:text-blue-200">
                   {product.brandName}
                 </div>
               </div>
@@ -319,21 +319,21 @@ const AllProducts = () => {
                   <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">{product.description}</p>
 
                   <div className="grid grid-cols-3 gap-2 mb-4">
-                    <div className="bg-blue-50 p-2 rounded-lg border border-blue-100 transition-all duration-300 hover:shadow-md hover:scale-105 hover:bg-blue-100">
+                    <div className="bg-blue-50 p-2 rounded-lg border border-blue-100 transition-all duration-300 hover:bg-blue-100">
                       <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Price</span>
                       <div className="flex items-baseline">
                         <span className="font-bold text-lg text-gray-800">${product.price}</span>
                       </div>
                     </div>
 
-                    <div className="bg-blue-50 p-2 rounded-lg border border-blue-100 transition-all duration-300 hover:shadow-md hover:scale-105 hover:bg-blue-100">
+                    <div className="bg-blue-50 p-2 rounded-lg border border-blue-100 transition-all duration-300 hover:bg-blue-100">
                       <span className="block text-blue-600 text-xs font-semibold uppercase tracking-wide mb-1">Qty</span>
                       <div className="flex items-baseline">
                         <span className="font-bold text-lg text-gray-800">{product.mainQuantity}</span>
                       </div>
                     </div>
 
-                    <div className="bg-amber-50 p-2 rounded-lg border border-amber-100 transition-all duration-300 hover:shadow-md hover:scale-105 hover:bg-amber-100">
+                    <div className="bg-amber-50 p-2 rounded-lg border border-amber-100 transition-all duration-300 hover:bg-amber-100">
                       <span className="block text-amber-600 text-xs font-semibold uppercase tracking-wide mb-1">Min</span>
                       <div className="flex items-baseline">
                         <span className="font-bold text-lg text-gray-800">{product.minSellingQuantity}</span>
@@ -354,9 +354,9 @@ const AllProducts = () => {
                   </Link> */}
                   <Link
                     to={`/product/${product._id}`}
-                    className="w-full px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center hover:shadow-xl hover:scale-105 active:scale-95 group/btn"
+                    className="w-full px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm font-medium text-center shadow-md flex items-center justify-center hover:shadow-xl group/btn"
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 transition-transform duration-300 group-hover/btn:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
@@ -372,8 +372,8 @@ const AllProducts = () => {
           {/* Mobile card view for small screens */}
           <div className="block md:hidden">
             {sortedProducts.map((product, index) => (
-              <div 
-                key={product._id} 
+              <div
+                key={product._id}
                 className={`p-4 border-b ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} transition-all duration-300 hover:bg-blue-50 hover:shadow-md hover:scale-[1.02] animate-fade-in-up cursor-pointer`}
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
@@ -472,8 +472,8 @@ const AllProducts = () => {
             </thead>
             <tbody className="bg-white">
               {sortedProducts.map((product, index) => (
-                <tr 
-                  key={product._id} 
+                <tr
+                  key={product._id}
                   className={`hover:bg-blue-50 transition-all duration-300 hover:shadow-md cursor-pointer animate-fade-in-up ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
                   style={{ animationDelay: `${index * 0.03}s` }}
                 >

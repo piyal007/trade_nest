@@ -47,7 +47,8 @@ const Categories = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 animate-slide-down">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Product Categories</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">Browse our extensive range of wholesale product categories for your business needs</p>
+          <p className="text-gray-600 max-w-2xl mx-auto">Explore our wide range of wholesale products for your business
+</p>
         </div>
 
         {loading ? (
